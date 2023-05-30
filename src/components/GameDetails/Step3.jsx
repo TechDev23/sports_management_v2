@@ -10,21 +10,6 @@ const TournamentTracking = () => {
   const [adminFetchGames, setAdminFetchGames] = useState(adminState)
   const [count, setCount] = useState(1);
 
-  const handleAddOneMore = () => {
-    setCount(count + 1);
-  };
-
-  const handleRemoveGame = () => {
-
-    if(count == 1) 
-    {
-      setCount(1);
-    }
-    else{
-      setCount(count - 1);
-    }
-
-  }
   useEffect(() => {
     dispatch(fetchGames());
   }, [dispatch]);

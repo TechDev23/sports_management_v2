@@ -39,7 +39,7 @@ export default function TournamentTracking() {
   };
 
   return (
-    <div className="border-2 border-red-500  w-full py-4 px-8 flex flex-col">
+    <div className="w-full py-4 px-8 flex flex-col">
       <div className="h-[130px] p-4">
         <Stepper
           activeStep={activeStep}

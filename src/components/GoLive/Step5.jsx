@@ -47,7 +47,7 @@ export default function Example() {
 
 
   return (
-    <div className="px-2 border-red-500 border">
+    <div className="px-2 border">
       <h2 className="font-bold text-3xl">Active Tournament2</h2>
 
 
@@ -55,7 +55,7 @@ export default function Example() {
 
         <Tabs value="details" className="w-10/12">
           <TabsHeader
-            className="min-w-full w-11/12 text-sm flex flex-row items-center justify-center divide-orange-600  bg-orange-600 p-1 rounded-md space-x-2 text-white"
+            className="min-w-full w-11/12 text-sm flex flex-row items-center justify-center divide-orange-600  bg-orange-600 p-1 rounded-md space-x-2 text-white hover:text-orange-600 focus:text-orange-400"
             indicatorProps={{
               className: "hover:shadow-none rounded-md bg-orange-600 hover:bg-white hover:text-orange-600 focus:bg-white focus:text-orange-400",
             }}

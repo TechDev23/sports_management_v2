@@ -11,7 +11,7 @@ const Step1 = () => {
   return (
     <>
       {/* <div>step1 {username}</div> */}
-      {
+      {/* {
         user.value && user.value.map((user, index)=>{
           return (
             <>
@@ -20,7 +20,8 @@ const Step1 = () => {
           )
         })
       }
-      <Button onClick={() => dispatch(fetchStudents())}> FetchStudents </Button>
+      <Button onClick={() => dispatch(fetchStudents())}> FetchStudents </Button> */}
+      step 1
     </>
   );
 };

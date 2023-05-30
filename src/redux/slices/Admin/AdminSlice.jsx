@@ -16,16 +16,29 @@ export const createGame = createAsyncThunk(
   async (requestData, thunkAPI) => {
     try {
       const response = await axios.post("/tournament", requestData);
-      return response.data;
+      console.log("response" ,response)
+      return response;
     } catch (error) {
       // Handle error scenarios
+      console.log("I am here")
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 
+export const fetchOnGoingTournaments = createAsyncThunk("fetchOnGoingTournaments", async()=>{
+  try {
+    const response = await axios.get("/tournament/?isActive=true")
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.log("Error while calling fetchOnGoingTournaments", error);
+  }
+})
+
 const initialState = {
   fetchGames: { isLoading: false, value: [], isError: false },
+  fetchOnGoingTournaments: { isLoading: false, value: [], isError: false },
   createGame: {
     value: {
       name: "",
@@ -57,7 +70,7 @@ export const AdminReducer = createSlice({
       state.fetchGames.isError = false;
     });
     builder.addCase(fetchGames.rejected, (state, action) => {
-      console.log("Error while fetching student", action.error.message);
+      console.log("Error while fetching games", action.error.message);
       state.fetchGames.isError = true;
     });
 
@@ -70,11 +83,26 @@ export const AdminReducer = createSlice({
       state.createGame.isError = false;
     });
     builder.addCase(createGame.rejected, (state, action) => {
-      console.log("Error while fetching student", action.error.message);
+      console.log("Error while creating game", action.error.message);
       state.createGame.isError = true;
+    });
+
+    builder.addCase(fetchOnGoingTournaments.pending, (state, action) => {
+      state.createGame.isLoading = true;
+    });
+    builder.addCase(fetchOnGoingTournaments.fulfilled, (state, action) => {
+      state.fetchOnGoingTournaments.isLoading = false;
+      state.fetchOnGoingTournaments.value = action.payload;
+      state.fetchOnGoingTournaments.isError = false;
+    });
+    builder.addCase(fetchOnGoingTournaments.rejected, (state, action) => {
+      console.log("Error while fetching student", action.error.message);
+      state.fetchOnGoingTournaments.isError = true;
     });
   },
 });
+
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 // export const { login, logout } = UserSlice.actions

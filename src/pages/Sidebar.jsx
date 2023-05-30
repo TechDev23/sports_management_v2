@@ -66,12 +66,15 @@ const Sidebar = () => {
           open ? "w-72" : "w-20 "
         }bg-white shadow-xl h-screen rounded-none p-4 transition-transform duration-500`}
       >
+        <div onClick={() => setOpen(!open)} className="border-orange-50 border-2 p-2 bg-white absolute -right-4 top-[435px] w-12 h-7 flex items-center scale-90  hover:scale-100 transition-all duration-300 py-4 rounded">
         <ChevronDoubleLeftIcon
-          className={`absolute cursor-pointer bg-white z-50 -right-4 top-6 w-7 h-7 text-orange-400   rounded-full scale-90 hover:scale-100 ${
+          className={`cursor-pointer bg-white z-50 w-7 h-7 text-orange-400 ${
              !open && "rotate-180"
-           } transition-all duration-300`}
-          onClick={() => setOpen(!open)}
+           } `}
+          
         />
+        </div>
+        
         <div className={`b-2 p-4 mb-4 flex items-center gap-2`}>
           <div>
             <img src={Logo} className={`cursor-pointer duration-500 ${

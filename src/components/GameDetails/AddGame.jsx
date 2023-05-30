@@ -113,16 +113,17 @@ const AddGame = ({ index }) => {
     const toSubmit = {
       name: compName,
       description: info, 
-      max_teams: 0,
-      team_size: 0,
-      total_matches: 0,
+      max_teams: 2,
+      team_size: 4,
+      total_matches: 1,
       isActive: true,
-      organizer_id: 0,
-      game_id: 0,
+      organizer_id: 1,
+      game_id: 1,
       start_date: "2023-05-29T07:12:56.222Z",
       end_date: "2023-05-29T07:12:56.222Z"
     }
-  
+    const af = dispatch(createGame(toSubmit))
+    console.log("after submit", af)
   }
 
   return (

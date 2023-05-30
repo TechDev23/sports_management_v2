@@ -197,14 +197,14 @@ export default function ComplexNavbar() {
 
   return (
     <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 rounded-none shadow-none">
-      <div className="relative mx-auto flex items-center gap-6 justify-end text-blue-gray-900">
-        <div>
+      <div className="relative mx-auto flex items-center justify-end gap-6 text-blue-gray-900">
+        <div className="pr-24">
             <NavList />
         </div>
         <div className="flex flex-row-reverse gap-4 items-end justify-end">
           <ProfileMenu />
           <Notionfications/>
-          <SearchInput/>
+          {/* <SearchInput/> */}
         </div>
       </div>
       <MobileNav open={isNavOpen} className="overflow-scroll">
