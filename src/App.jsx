@@ -16,7 +16,6 @@ import {
 } from "./pages";
 import Sidebar from "./pages/Sidebar";
 import { StepProvider } from "./context/StepContext";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,7 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: "calendar",
-        element: <Calendar />,
+        element: <Calendar />,  
       },
       {
         path: "on-going",

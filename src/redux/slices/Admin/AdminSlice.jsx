@@ -1,40 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../axios";
-
-export const fetchGames = createAsyncThunk("fetchGames", async () => {
-  try {
-    const response = await axios.get("/admin/game");
-    const data = response.data;
-    return data;
-  } catch (error) {
-    console.log("Error while calling fetchstudent", error);
-  }
-});
-
-export const createGame = createAsyncThunk(
-  "createGame",
-  async (requestData, thunkAPI) => {
-    try {
-      const response = await axios.post("/tournament", requestData);
-      console.log("response" ,response)
-      return response;
-    } catch (error) {
-      // Handle error scenarios
-      console.log("I am here")
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const fetchOnGoingTournaments = createAsyncThunk("fetchOnGoingTournaments", async()=>{
-  try {
-    const response = await axios.get("/tournament/?isActive=true")
-    const data = response.data;
-    return data;
-  } catch (error) {
-    console.log("Error while calling fetchOnGoingTournaments", error);
-  }
-})
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchGames, createGame, fetchOnGoingTournaments } from "./adminActions";
 
 const initialState = {
   fetchGames: { isLoading: false, value: [], isError: false },
@@ -56,7 +21,8 @@ const initialState = {
     isError: false 
   },
 };
-export const AdminReducer = createSlice({
+
+const adminSlice = createSlice({
   name: "admin",
   initialState,
   reducers: {},
@@ -102,7 +68,4 @@ export const AdminReducer = createSlice({
   },
 });
 
-
-
-// eslint-disable-next-line react-refresh/only-export-components
-// export const { login, logout } = UserSlice.actions
+export default adminSlice;
