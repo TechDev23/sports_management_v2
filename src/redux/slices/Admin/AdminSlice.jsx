@@ -7,7 +7,7 @@ export const fetchGames = createAsyncThunk("fetchGames", async () => {
     const data = response.data;
     return data;
   } catch (error) {
-    console.log("Error while calling fetchstudent", error);
+    console.log("Error while calling fetch games", error);
   }
 });
 

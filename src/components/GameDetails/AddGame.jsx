@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
@@ -13,10 +14,10 @@ import Select from 'react-select'
 import { createGame } from "../../redux/slices/Admin/AdminSlice";
 const minDistance = 1;
 
-const AddGame = ({ index }) => {
+const AddGame = () => {
   const dispatch = useDispatch();
   const { fetchGames: allGames } = useSelector((state) => state.admin);
-
+  console.log("fetchGames", allGames) 
 
   const [value2, setValue2] = useState([0, 5]);
 

@@ -2,6 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Root from "./routes/root";
+import participant from "./routes/participant";
 import ErrorPage from "./error-page";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
@@ -16,6 +17,7 @@ import {
 } from "./pages";
 import Sidebar from "./pages/Sidebar";
 import { StepProvider } from "./context/StepContext";
+import { Participants } from "./components";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,16 @@ const router = createBrowserRouter([
     path: "/sidebar",
     element: <Sidebar />,
   },
+  {
+    path: "/participant",
+    element: <participant/>
+    children : [
+
+      path
+
+    ],
+    
+  }
 ]);
 
 function App() {
