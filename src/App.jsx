@@ -15,6 +15,8 @@ import {
   Discover,
   TournamentTracking,
   Competition,
+  Tournament,
+  Match,
   Participantlogin,
   Participantsignup,
   Organizerlogin,
@@ -62,6 +64,14 @@ const router = createBrowserRouter([
         path: "on-going",
         element: <Competition />,
       },
+      {
+        path: "tournament",
+        element: <Tournament/>
+      },
+      {
+        path: "match",
+        element: <Match/>
+      }
     ],
   },
   {
