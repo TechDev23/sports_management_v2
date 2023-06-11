@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AddGame from './AddGame';
-import { fetchGames } from '../../redux/slices/Admin/AdminSlice'
+import { fetchGames } from '../../redux/slices/Admin/adminActions'
 import { useDispatch, useSelector } from "react-redux";
 
 const TournamentTracking = () => {

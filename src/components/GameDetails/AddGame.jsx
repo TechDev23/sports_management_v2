@@ -11,7 +11,7 @@ import {
 } from "@material-tailwind/react";
 import { useSelector, useDispatch } from "react-redux";
 import Select from 'react-select'
-import { createGame } from "../../redux/slices/Admin/AdminSlice";
+import { createGame } from "../../redux/slices/Admin/adminActions";
 const minDistance = 1;
 
 const AddGame = () => {
@@ -104,10 +104,10 @@ const AddGame = () => {
     setGender(e);
   };
 
-  const options = allGames.value.map((item) => ({
+  const options = allGames.value?.map((item) => ({
     label: item.name,
     value: item.id.toString(),
-  }));
+  })) || [];
 
 
   const handleAddGame = ()=>{

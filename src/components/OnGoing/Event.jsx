@@ -9,7 +9,7 @@ import {
 import { Avatar } from "../index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchOnGoingTournaments } from "../../redux/slices/Admin/AdminSlice";
+import { fetchOnGoingTournaments } from "../../redux/slices/Admin/adminActions";
 
 export default function Example() {
   const dispatch = useDispatch();

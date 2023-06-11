@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Stepper, Step, Button, Typography } from "@material-tailwind/react";
 import {
   CogIcon,
@@ -6,11 +6,31 @@ import {
   BuildingLibraryIcon,
 } from "@heroicons/react/24/outline";
 import { Step1, Step2, Step3, Step4, Step5 } from "../components";
+import { useNavigate } from "react-router-dom";
 
 export default function TournamentTracking() {
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
+
+  useEffect(() => {
+    const savedActiveStep = sessionStorage.getItem("activeStep");
+    const lastCompletedStep = parseInt(savedActiveStep, 10);
+    if (
+      savedActiveStep !== null &&
+      lastCompletedStep >= 0 &&
+      lastCompletedStep <= 4
+    ) {
+      setActiveStep(lastCompletedStep);
+    } else {
+      setActiveStep(0); // Set initial step to 0 if no saved value or invalid value found
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("activeStep", activeStep.toString());
+  }, [activeStep]);
 
   const handleNext = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -48,7 +68,9 @@ export default function TournamentTracking() {
           className={`w-[640px] mx-auto`}
           activeLineClassName="bg-orange-400"
         >
-          <Step activeClassName="bg-orange-500 shadow-none scale-105" completedClassName="bg-orange-500" 
+          <Step
+            activeClassName="bg-orange-500 shadow-none scale-105"
+            completedClassName="bg-orange-500"
             onClick={() => setActiveStep(0)}
           >
             <UserIcon className="h-5 w-5" />
@@ -62,7 +84,11 @@ export default function TournamentTracking() {
               </Typography>
             </div>
           </Step>
-          <Step activeClassName="bg-orange-500 shadow-none scale-105" completedClassName="bg-orange-500"  onClick={() => setActiveStep(1)}>
+          <Step
+            activeClassName="bg-orange-500 shadow-none scale-105"
+            completedClassName="bg-orange-500"
+            onClick={() => setActiveStep(1)}
+          >
             <UserIcon className="h-5 w-5" />
             <div className="absolute -bottom-10 w-26 text-center">
               <Typography
@@ -74,7 +100,11 @@ export default function TournamentTracking() {
               </Typography>
             </div>
           </Step>
-          <Step activeClassName="bg-orange-500 shadow-none scale-105" completedClassName="bg-orange-500"  onClick={() => setActiveStep(2)}>
+          <Step
+            activeClassName="bg-orange-500 shadow-none scale-105"
+            completedClassName="bg-orange-500"
+            onClick={() => setActiveStep(2)}
+          >
             <BuildingLibraryIcon className="h-5 w-5" />
             <div className="absolute -bottom-16 w-26 text-center">
               <Typography
@@ -86,7 +116,11 @@ export default function TournamentTracking() {
               </Typography>
             </div>
           </Step>
-          <Step activeClassName="bg-orange-500 shadow-none scale-105" completedClassName="bg-orange-500"  onClick={() => setActiveStep(3)}>
+          <Step
+            activeClassName="bg-orange-500 shadow-none scale-105"
+            completedClassName="bg-orange-500"
+            onClick={() => setActiveStep(3)}
+          >
             <UserIcon className="h-5 w-5" />
             <div className="absolute -bottom-10 w-26 text-center">
               <Typography
@@ -98,7 +132,11 @@ export default function TournamentTracking() {
               </Typography>
             </div>
           </Step>
-          <Step activeClassName="bg-orange-500 shadow-none scale-105" completedClassName="bg-orange-500"  onClick={() => setActiveStep(4)}>
+          <Step
+            activeClassName="bg-orange-500 shadow-none scale-105"
+            completedClassName="bg-orange-500"
+            onClick={() => setActiveStep(4)}
+          >
             <CogIcon className="h-5 w-5" />
             <div className="absolute -bottom-10 w-28 text-center">
               <Typography
