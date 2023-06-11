@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import { approveTeam, getTeamsByID } from "../redux/slices/Teams/teamActions";
 import { Button } from "@material-tailwind/react";
 import { creatGame } from "../redux/slices/Admin/adminActions";
+import { fetchAllPlayers } from "../redux/slices/Participants/participantsActions";
 
 const Dashboard = () => {
 
@@ -11,7 +12,7 @@ const Dashboard = () => {
   useEffect(()=>{
     const fetchData = async () => {
       try {
-        const response = await dispatch(getTeamsByID({ id: 1 }));
+        const response = await dispatch(fetchAllPlayers());
         console.log('Data:', response.payload); // Access the data from the response
       } catch (error) {
         console.log('Error:', error);

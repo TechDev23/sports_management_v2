@@ -45,7 +45,7 @@ const Discover = () => {
         Password
       </label>
       <input className="text-xl shadow appearance-none border focus:border-red-500 rounded w-full py-3 px-3 text-gray-700 mb-3 leading-tight focus:outline-blue-500 focus:shadow-outline transition-all" id="password" type="password" placeholder="******************" value={pass} required onChange={handlePassChange} />
-      <p classNames="text-red-500 text-xs italic"  >Please choose a password.</p>
+      <p className="text-red-500 text-xs italic"  >Please choose a password.</p>
     </div>
     <div className="flex flex-col items-center justify-between space-y-4">
       <button onClick={addParticipant} disabled= {isCreateUser} className={`w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline ${isCreateUser && "opacity-50 cursor-not-allowed" }`} type="button">
