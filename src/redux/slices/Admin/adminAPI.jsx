@@ -10,6 +10,16 @@ export const fetchGamesAPI = async () => {
   }
 };
 
+export const creatGameAPI = async (requestData) => {
+  try {
+    const response = await axios.post("/admin/game", requestData);
+    return response.data;
+  } catch (error) {
+    console.log("Error while calling fetchGamesAPI", error);
+    throw error;
+  }
+};
+
 export const createGameAPI = async (requestData) => {
   try {
     const response = await axios.post("/tournament", requestData);

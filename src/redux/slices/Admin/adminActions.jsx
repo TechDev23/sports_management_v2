@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  creatGameAPI,
   fetchGamesAPI,
   createGameAPI,
   fetchOnGoingTournamentsAPI,
@@ -9,6 +10,16 @@ export const fetchGames = createAsyncThunk("fetchGames", async () => {
   return fetchGamesAPI();
 });
 
+export const creatGame = createAsyncThunk(
+  "creatGame",
+  async (requestData, thunkAPI) => {
+    try {
+      return creatGameAPI(requestData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 export const createGame = createAsyncThunk(
   "createGame",
   async (requestData, thunkAPI) => {

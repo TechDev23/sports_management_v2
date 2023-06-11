@@ -25,9 +25,7 @@ const TournamentTracking = () => {
       <div className="mt-5 "></div>
       
         <div>
-        {[...Array(count)].map((_, index) => (
-          <AddGame key={index} />
-        ))}
+          <AddGame/>
 
         </div>
       

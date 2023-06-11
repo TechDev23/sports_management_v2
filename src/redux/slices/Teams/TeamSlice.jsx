@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getTeamsByID } from "./teamActions";
+import { approveTeam, getTeamsByID } from "./teamActions";
 
 const initialState = {
   getTeamsById: { isLoading: false, value: {}, isError: false },
@@ -27,6 +27,18 @@ const teamsSlice = createSlice({
             .addCase(getTeamsByID.rejected, (state, action) => {
               console.log("Error while fetching games", action.error.message);
               state.getTeamsById.isError = true;
+            })
+
+          builder
+            .addCase(approveTeam.pending, (state) => {
+              state.approveTeam.isLoading = true;
+            })
+            .addCase(approveTeam.fulfilled, (state, action) => {
+              setAsyncState(state.approveTeam, action);
+            })
+            .addCase(approveTeam.rejected, (state, action) => {
+              console.log("Error while fetching games", action.error.message);
+              state.approveTeam.isError = true;
             })
           
     }

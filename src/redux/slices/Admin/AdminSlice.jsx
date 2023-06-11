@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchGames, createGame, fetchOnGoingTournaments } from "./adminActions";
+import { fetchGames, createGame, creatGame, fetchOnGoingTournaments } from "./adminActions";
 
 const initialState = {
   fetchGames: { isLoading: false, value: [], isError: false },
@@ -20,6 +20,9 @@ const initialState = {
     isLoading: false,
     isError: false 
   },
+  creatGame:{
+    isLoading: false, value: {}, isError: false
+  }
 };
 
 const adminSlice = createSlice({
@@ -53,6 +56,7 @@ const adminSlice = createSlice({
       state.createGame.isError = true;
     });
 
+
     builder.addCase(fetchOnGoingTournaments.pending, (state, action) => {
       state.createGame.isLoading = true;
     });
@@ -65,6 +69,22 @@ const adminSlice = createSlice({
       console.log("Error while fetching student", action.error.message);
       state.fetchOnGoingTournaments.isError = true;
     });
+
+    // creating game like tennis, 
+    builder
+      .addCase(creatGame.fulfilled, (state, action) =>{
+        state.creatGame.isLoading = false;
+        state.creatGame.value = action.payload;
+        state.creatGame.isError = false;
+      })
+      .addCase(creatGame.rejected, (state, action) => {
+        console.log("Error while creating game admin", action.error.message);
+        state.creatGame.isError = true;
+      })
+      .addCase(creatGame.pending, (state, action) => {
+        state.creatGame.isLoading = true;
+      });
+      
   },
 });
 

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux"
 import { approveTeam, getTeamsByID } from "../redux/slices/Teams/teamActions";
 import { Button } from "@material-tailwind/react";
+import { creatGame } from "../redux/slices/Admin/adminActions";
 
 const Dashboard = () => {
 
@@ -20,9 +21,13 @@ const Dashboard = () => {
     fetchData();
   },[dispatch])
 
-  const handleApproveTeam = (id, isApprove) => {
-    const dt = dispatch(approveTeam({id: 1, isApprove: false}));
-    console.log("approve", dt)
+  const handleApproveTeam = async (game) => {
+    try {
+      const response = await dispatch(creatGame(game))
+      console.log("Create team: ", response.payload)
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
 
   return (
@@ -31,7 +36,7 @@ const Dashboard = () => {
 
       <div className="mx-6 my-4">
         {/* <Button onClick={() => handleApproveTeam(teamId, true)}>approve team</Button> */}
-        <Button onClick={() => handleApproveTeam(1, false)}>approve team</Button>
+        <Button onClick={() => handleApproveTeam({name: "tennis"})}>create game</Button>
       </div>
     </div>
   )
