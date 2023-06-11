@@ -57,10 +57,10 @@ const Participantsignup = () => {
       <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="password">
         Password
       </label>
-      <input className="text-xl shadow appearance-none border focus:border-red-500 rounded w-full py-3 px-3 text-gray-700 mb-3 leading-tight focus:outline-blue-500 focus:shadow-outline transition-all" id="password" type="password" placeholder="******************" value={pass} required onChange={handlePassChange} />
+      <input className="text-xl shadow appearance-none border focus:border-red-500 rounded w-full py-3 px-3 text-gray-700 mb-3 leading-tight focus:outline-orange-500 focus:shadow-outline transition-all" id="password" type="password" placeholder="******************" value={pass} required onChange={handlePassChange} />
     </div>
     <div className="flex flex-col items-center justify-between space-y-4">
-      <button onClick={addParticipant} disabled= {isCreateUser} className={`w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 flex flex-row justify-center rounded-lg focus:outline-none focus:shadow-outline ${isCreateUser && "opacity-50 cursor-not-allowed" }`} type="button">
+      <button onClick={addParticipant} disabled= {isCreateUser} className={`w-3/5 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 flex flex-row justify-center rounded-lg focus:outline-none focus:shadow-outline ${isCreateUser && "opacity-50 cursor-not-allowed" }`} type="button">
       {isLoading ? (
         <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -71,7 +71,7 @@ const Participantsignup = () => {
       )}Create Account
       </button>
 
-      <p className='text-sm font-bold text-gray-700'>Already have an account ? <button onClick={()=> navigate("/participant/login")} className="inline-block align-baseline  text-blue-500 hover:text-blue-800" href="#">
+      <p className='text-sm font-bold text-gray-700'>Already have an account ? <button onClick={()=> navigate("/participantlogin")} className="inline-block align-baseline  text-blue-500 hover:text-blue-800" href="#">
       sign in
     </button></p>
 

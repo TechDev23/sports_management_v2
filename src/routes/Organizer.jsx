@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../pages/Sidebar";
 import Navbar from "../pages/Navbar";
 
-export default function Root() {
+export default function Organizer() {
   return (
     <>
       <div className="flex">

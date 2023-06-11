@@ -19,37 +19,37 @@ import { Link } from "react-router-dom";
 import Logo from "../../src/assets/images/logo.png"
 const sidebarItems = [
   {
-    linkTo: "/dashboard",
+    linkTo: "dashboard",
     icon: PresentationChartBarIcon,
     label: "Dashboard",
     hasSuffix: false,
   },
   {
-    linkTo: "/calendar",
+    linkTo: "calendar",
     icon: CalendarIcon,
     label: "Calendar",
     hasSuffix: false,
   },
   {
-    linkTo: "/tournament-tracking",
+    linkTo: "tournament-tracking",
     icon: FolderIcon,
     label: "Tournament Tracking",
     hasSuffix: false,
   },
   {
-    linkTo: "/teams",
+    linkTo: "teams",
     icon: UsersIcon,
     label: "Teams",
     hasSuffix: false,
   },
   {
-    linkTo: "/messages",
+    linkTo: "messages",
     icon: InboxIcon,
     label: "Messages",
     hasSuffix: true,
   },
   {
-    linkTo: "/on-going",
+    linkTo: "on-going",
     icon: PresentationChartBarIcon,
     label: "On Going",
     hasSuffix: false,
