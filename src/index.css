@@ -4,6 +4,6 @@
 
 @layer base{
     body{
-        @apply max-w-7xl mx-auto h-full scroll-smooth box-border ;
+        @apply w-full mx-auto h-full scroll-smooth box-border ;
     }
 }
