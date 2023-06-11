@@ -2,7 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Root from "./routes/root";
-import participant from "./routes/participant";
+import Participant from "./routes/participant";
 import ErrorPage from "./error-page";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
@@ -13,11 +13,15 @@ import {
   Messages,
   Teams,
   TournamentTracking,
-  Competition
+  Competition,
+  Discover,
+  Participantlogin,
+  Participantsignup,
+  Organizerlogin,
+  Organizersignup
 } from "./pages";
 import Sidebar from "./pages/Sidebar";
 import { StepProvider } from "./context/StepContext";
-import { Participants } from "./components";
 
 const router = createBrowserRouter([
   {
@@ -26,15 +30,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "dashboard",
+        path: "/dashboard",
         element: <Dashboard />,
       },
       {
-        path: "messages",
+        path: "/messages",
         element: <Messages />,
       },
       {
-        path: "tournament-tracking",
+        path: "/tournament-tracking",
         element: (
           <StepProvider>
             <TournamentTracking />
@@ -42,17 +46,25 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "teams",
+        path: "/teams",
         element: <Teams />,
       },
       {
-        path: "calendar",
-        element: <Calendar />,  
+        path: "/calendar",
+        element: <Calendar />,
       },
       {
-        path: "on-going",
+        path: "/on-going",
         element: <Competition />,
       },
+      {
+        path: "/register",
+        element: <Organizersignup/>
+      },
+      {
+        path: "/login",
+        element: <Organizerlogin/>
+      }
     ],
   },
   {
@@ -60,8 +72,23 @@ const router = createBrowserRouter([
     element: <Sidebar />,
   },
   {
-    path: "/participant",
-    element: <Participants/>
+    path: "/participant/",
+    element: <Participant/>,
+    children: [
+      {
+        path: "discover",
+        element: <Discover/>
+      },
+      {
+        path: "login",
+        element: <Participantlogin/>
+      },
+      {
+        path: "register",
+        element: <Participantsignup/>
+      }
+    ]
+    
   }
 ]);
 
