@@ -9,7 +9,7 @@ import { Step1, Step2, Step3, Step4, Step5 } from "../components";
 import { useNavigate } from "react-router-dom";
 
 export default function TournamentTracking() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
@@ -154,10 +154,10 @@ export default function TournamentTracking() {
       <div className="h-full mt-2 ">{renderStepContent()}</div>
 
       <div className="flex justify-between">
-        <Button onClick={handlePrev} color="orange" disabled={isFirstStep}>
+        <Button variant="outlined" onClick={handlePrev} color="orange" disabled={isFirstStep}>
           Prev
         </Button>
-        <Button onClick={handleNext} color="orange" disabled={isLastStep}>
+        <Button variant="outlined" onClick={handleNext} color="orange" disabled={isLastStep}>
           Next
         </Button>
       </div>

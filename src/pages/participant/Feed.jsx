@@ -1,6 +1,29 @@
-import React from 'react'
+import  { useEffect, useState } from 'react'
+
+import { useDispatch } from 'react-redux'
+import { fetchTournaments } from '../../redux/slices/Tournament/tournamentAction';
+
 
 function Feed() {
+
+    const dispatch = useDispatch();
+    const [allTours, setAllTours] = useState([])
+
+    useEffect(()=>{
+        const fetchData = async () => {
+          try {
+            const response = await dispatch(fetchTournaments({isActive: true}));
+            console.log('All tournaments:', response.payload); // Access the data from the response
+            setAllTours(response.payload)
+          } catch (error) {
+            console.log('Error:', error);
+          }
+        };
+
+        fetchData();
+      },[dispatch])
+    
+    
     return (
         <div>
             <section className=" bg-white body-font">
@@ -22,12 +45,16 @@ function Feed() {
                         </div>
                     </div>
                     <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-                        <div className="p-4 md:w-1/3 sm:mb-0 mb-6">
+                        
+                    {
+                        allTours.map((data, index)=>(
+                            <>
+                            <div key={index} className="p-4 md:w-1/3 sm:mb-0 mb-6">
                             <div className="rounded-lg h-64 overflow-hidden">
                                 <img alt="content" className="object-cover object-center h-full w-full" src="https://static.vecteezy.com/system/resources/previews/001/984/587/original/cricket-tournament-match-design-concept-free-vector.jpg" />
                             </div>
                             <div className='flex flex-row justify-between items-center mt-4 '>
-                                <h2 className="text-xl font-medium title-font text-black">Cricket</h2>
+                                <h2 className="text-xl font-medium title-font text-black">{data.name}</h2>
 
                                 <p className='text-[12px] text-orange-700'>Starts from 29th July</p>
                             </div>
@@ -37,36 +64,9 @@ function Feed() {
                                 View More
                             </button>
                         </div>
-                        <div className="p-4 md:w-1/3 sm:mb-0 mb-6">
-                            <div className="rounded-lg h-64 overflow-hidden">
-                                <img alt="content" className="object-cover object-center h-full w-full" src="https://static.vecteezy.com/system/resources/previews/000/219/163/original/vector-football-sports-tournament-soccer-championship-background.jpg" />
-                            </div>
-                            <div className='flex flex-row justify-between items-center mt-4 '>
-                                <h2 className="text-xl font-medium title-font text-black">Football</h2>
-
-                                <p className='text-[12px] text-orange-700'>Starts from 29th July</p>
-                            </div>
-
-                            <p className="text-base leading-relaxed mt-2">Football is known for its fast-paced action, teamwork, and skillful maneuvers. It has a massive fan base and is celebrated in international tournaments like the FIFA World Cup.</p>
-                            <button className="bg-orange-400 hover:bg-orange-500 text-white font-bold px-3 py-1 border  p-5 mt-3 border-orange-500 rounded-md">
-                                View More
-                            </button>
-                        </div>
-                        <div className="p-4 md:w-1/3 sm:mb-0 mb-6">
-                            <div className="rounded-lg h-64 overflow-hidden">
-                                <img alt="content" className="object-cover object-center h-full w-full" src="https://i.pinimg.com/736x/74/57/6f/74576fe9214f46822a0657d1d41f0104.jpg" />
-                            </div>
-                            <div className='flex flex-row justify-between items-center mt-4 '>
-                                <h2 className="text-xl font-medium title-font text-black">Badminton</h2>
-
-                                <p className='text-[12px] text-orange-700'>Starts from 29th July</p>
-                            </div>
-
-                            <p className="text-base leading-relaxed mt-2">Badminton is a popular racquet sport played with a shuttlecock. It can be played in singles or doubles, with players aiming to hit the shuttlecock over the net and into the opponent's court. </p>
-                            <button className="bg-orange-400 hover:bg-orange-500 text-white font-bold px-3 py-1 border  p-5 mt-3 border-orange-500 rounded-md">
-                                View More
-                            </button>
-                        </div>
+                            </>
+                        ))
+                    }
                     </div>
                 </div>
             </section>

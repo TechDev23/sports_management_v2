@@ -1,7 +1,7 @@
 // import { Input, Select, Option, ButtonGroup, Button, Textarea } from "@material-tailwind/react";
 import { useState } from 'react';
-import Rosters from './rosters';
-import Details from '../../components/details';
+import Rosters from './Rosters';
+import Details from '../Details';
 
 import {Participants} from '../index';
 
@@ -17,7 +17,7 @@ import SetOperations from '../SetOperations';
 export default function Example() {
   const data = [
     {
-      label: "GAME DETAILS",
+      label: "DETAILS",
       value: "details",
       desc: <Details />,
     },
@@ -47,8 +47,8 @@ export default function Example() {
 
 
   return (
-    <div className="px-2 border">
-      <h2 className="font-bold text-3xl">Active Tournament2</h2>
+    <div className="px-2 border mt-3">
+      <h2 className="font-bold text-3xl capitalize">Created Tournament details</h2>
 
 
       <div className=" my-5 min-w-screen min-h-screen flex flex-row justify-start">

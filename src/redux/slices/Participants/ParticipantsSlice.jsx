@@ -15,6 +15,7 @@ const participantsSlice = createSlice({
         const setAsyncState = (state, action) => {
             state.isLoading = action.meta.requestStatus === "pending";
             state.value = action.payload;
+            state.isSuccess = action.meta.requestStatus === "fulfilled"
             state.isError = action.meta.requestStatus === "rejected";
           };
 

@@ -10,19 +10,9 @@ import { fetchTournaments, createTournament, getTournamentByID, getTournamentEnt
 const initialState = {
   fetchTournament: { isLoading: false, value: [], isError: false },
   createTournament: {
-    value: {
-      name: "",
-      description: "",
-      max_teams: 0,
-      team_size: 0,
-      total_matches: 0,
-      isActive: true,
-      organizer_id: 0,
-      game_id: 0,
-      start_date: "2023-05-29T07:12:56.222Z",
-      end_date: "2023-05-29T07:12:56.222Z",
-    },
+    value: {},
     isLoading: false,
+    isSuccess: false,
     isError: false 
   },
   getTournamentByID: { isLoading: false, value: {}, isError: false },
@@ -43,6 +33,7 @@ const tournamentSlice = createSlice({
         const setAsyncState = (state, action) => {
             state.isLoading = action.meta.requestStatus === "pending";
             state.value = action.payload;
+            state.isSuccess = action.meta.requestStatus === "fulfilled";
             state.isError = action.meta.requestStatus === "rejected";
           };
           
@@ -65,6 +56,7 @@ const tournamentSlice = createSlice({
               })
             .addCase(createTournament.fulfilled, (state, action) => {
                 setAsyncState(state.createTournament, action)
+                localStorage.setItem("createdTournamentID", action.payload.id)
               })
             .addCase(createTournament.rejected, (state, action) => {
                 console.log("Error while creating game", action.error.message);

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchAllOrganizer, createOrganization, fetchOrganizationByID } from "./organizerActions";
 
+
 const initialState = {
     fetchOrgs: { isLoading: false, value: [], isError: false },
     createOrg: { isLoading: false, value: {}, isError: false, isSuccess: false },
@@ -15,7 +16,7 @@ const organizerSlice = createSlice({
         const setAsyncState = (state, action) => {
             state.isLoading = action.meta.requestStatus === "pending";
             state.value = action.payload;
-            state.isSuccess = true
+            state.isSuccess = action.meta.requestStatus === "fulfilled"
             state.isError = action.meta.requestStatus === "rejected";
           };
           
@@ -37,6 +38,7 @@ const organizerSlice = createSlice({
             })
             .addCase(createOrganization.fulfilled, (state, action) => {
               setAsyncState(state.createOrg, action);
+              localStorage.setItem("orgID", action.payload.id)
             })
             .addCase(createOrganization.rejected, (state, action) => {
               console.log("Error while fetching games", action.error.message);
