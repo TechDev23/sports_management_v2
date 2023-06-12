@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 import { fetchTournaments } from "../../redux/slices/Tournament/tournamentAction";
 
-const Feed = () => {
+const Alltours = () => {
 
   const navigate = useNavigate();
 
@@ -92,7 +92,7 @@ const Feed = () => {
       <CardFooter className="pt-0">
       <div className="flex justify-start items-center">
       
-      <Button onClick={() => navigate('/participant/details')} className="bg-orange-500 hover:bg-orange-700 hover:drop-shadow- hover:drop-shadow-none font-bold text-white items-center">View Details</Button>
+      <Button onClick={() => navigate('/admin/details')} className="bg-orange-500 hover:bg-orange-700 hover:drop-shadow- hover:drop-shadow-none font-bold text-white items-center">View Details</Button>
       </div>
       </CardFooter>
     </Card>
@@ -108,4 +108,4 @@ const Feed = () => {
   )
 }
 
-export default Feed
+export default Alltours

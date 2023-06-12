@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { approveTeam, getTeamsByID } from "../redux/slices/Teams/teamActions";
 import { creatGame } from "../redux/slices/Admin/adminActions";
@@ -27,6 +27,7 @@ import {
 const Dashboard = () => {
   const navigate = useNavigate();
 
+  const [allTours, setAllTours] = useState([])
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {

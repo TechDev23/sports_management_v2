@@ -13,7 +13,7 @@ const Participants = () => {
     const fetchData = async () => {
       try {
         const response = await dispatch(
-          getTournamentEntries({ id: tourID, isApproved:  })
+          getTournamentEntries({ id: tourID, isApproved: false })
         );
         console.log('Data:', response.payload); // Access the data from the response
         setAllTeams(response.payload);

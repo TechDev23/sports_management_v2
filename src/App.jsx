@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Organizer from "./routes/Organizer";
 import Participant from "./routes/Participant";
+import Admin from "./routes/Admin";
 import ErrorPage from "./error-page";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
@@ -21,7 +22,11 @@ import {
   Participantsignup,
   Organizerlogin,
   Organizersignup,
-  Feed
+  Feed,
+  Alltours,
+  TourDetails,
+  GameDetails,
+  Apply
 } from "./pages";
 import Sidebar from "./pages/Sidebar";
 import { StepProvider } from "./context/StepContext";
@@ -33,6 +38,22 @@ const router = createBrowserRouter([
     element: <Discover/>,
     errorElement: <ErrorPage/>,
   },
+
+  {
+    path: "admin/",
+    element: <Admin/>,
+    children: [
+      {
+        path: "feed",
+        element: <Alltours/>
+      },
+      {
+        path: "details",
+        element: <TourDetails/>
+      }
+    ]
+  },
+
   {
     path: "organizer/",
     element: <Organizer />,
@@ -103,6 +124,14 @@ const router = createBrowserRouter([
         path: "discover",
         element: <Feed/>
       },
+      {
+        path: "details",
+        element: <GameDetails/>
+      },
+      {
+        path: "apply",
+        element: <Apply/>
+      }
     ]
     
   }
