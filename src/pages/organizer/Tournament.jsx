@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { useState, useEffect } from 'react';
 import {
   Card,
   CardBody,
@@ -8,9 +8,99 @@ import {
   Button
 } from "@material-tailwind/react";
 
+import { AiFillEdit } from 'react-icons/ai';
+import { GrDocumentUpdate } from 'react-icons/gr';
+import { MdOutlineEditOff }  from 'react-icons/md';
+
 import { useNavigate } from 'react-router-dom';
 
 const Tournament = () => {
+
+  const [edit, setEdit] = useState(true);
+
+  const [inputFieldStates, setInputFieldStates] = useState([]);
+
+   // Function to handle update button click for a specific input
+   // Function to handle update button click
+  const handleUpdateClick = (index) => {
+    // Logic to handle update button click for the specific row
+    const updatedRow = inputFieldStates[index];
+    console.log(`Update clicked for row ${index}`);
+    console.log(updatedRow);
+  };
+
+  // Function to handle changes in input fields
+  const handleInputChange = (index, fieldIndex, event) => {
+    const values = [...inputFieldStates];
+    values[index][fieldIndex] = event.target.value;
+    setInputFieldStates(values);
+    console.log(values[index]);
+  };
+
+  // Function to render input fields and buttons dynamically
+  const renderInputFieldsAndButtons = () => {
+    return inputFieldStates.map((row, index) => (
+      <div key={index} className='flex flex-row justify-between w-ful px-4 py-4 rounded-xl items-center border-b'>
+      
+      <div className='text-lg'>
+      Manchester City
+      </div>
+  
+      <div className={`bg-gray-50 rounded-3xl shadow-sm flex items-center ${!edit && "border-2"}`}>
+      
+      <input
+        value={row[0]}
+        onChange={(event) => handleInputChange(index, 0, event)}
+        className='w-[55px] rounded-l-3xl py-2 text-right pr-2 outline-none'
+        disabled={edit}
+      />
+      <h1 className='h-full bg-gray-50'>:</h1>
+      <input
+        value={row[1]}
+        onChange={(event) => handleInputChange(index, 1, event)}
+        className='w-16 rounded-r-3xl py-2 text-left pl-2 outline-none'
+        disabled= {edit}
+      />
+      
+      </div>
+
+      <div className='text-lg'>
+      Manchester United
+      </div>
+
+      <div className='flex flex-row space-x-4 items-center'>
+      
+        <button onClick={() => setEdit(!edit)} className='border border-orange-500 text-orange-500 py-4 px-4 font-bold rounded-xl shadow-sm  transition-all'>
+        {
+
+          edit ? (<MdOutlineEditOff/>) : (
+            
+        <AiFillEdit/>
+          )
+        }
+        
+        
+        </button>
+        <button onClick={() => handleUpdateClick(index)} className='border border-blue-gray-900 text-blue-gray-900 py-4 px-4 font-bold rounded-xl shadow-sm'><GrDocumentUpdate/></button>
+
+      </div>
+
+      </div>
+    ));
+  };
+
+  // Assuming you receive the data from the backend as an array
+  const dataFromBackend = [
+    ['', ''],
+    ['', ''],
+    ['', ''],
+    ['', ''],
+  ];
+
+  // Update the inputFieldStates when dataFromBackend changes
+  useEffect(() => {
+    setInputFieldStates(dataFromBackend);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -18,113 +108,56 @@ const Tournament = () => {
   const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
   return (
-    <div className='p-2'>
-      <div className='font-bold text-3xl text-blue-gray-900 border-b-2 py-2'>Recent Matches</div>
-      <div className='py-4 w-full h-full flex flex-wrap gap-8 items-center justify-center'>
+    <div className='p-2 '>
 
+    <div className='space-y-4'>
+      <div>
+      <p className='py-4  text-3xl w-full'>
+      Current Matches
+      </p>
 
-        <div className='font-bold  bg-gray-50  w-96 h-56 rounded-2xl p-4 space-y-4 shadow-lg'>
-
-          <div className='flex justify-between items-center'>
-          <p className='text-center  bg-gray-100 rounded-xl p-1 px-2 text-sm'>Match 1</p>
-          
-          <p className='p-1 px-2 bg-green-500 text-white rounded-xl font-normal text-sm'>round 2</p>
-          </div>
-          <div className='flex flex-row justify-between text-md items-center space-x-4'>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 1</p>
-            <p className='bg-orange-600 text-white p-1 px-2 rounded-lg'>VS</p>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 2</p>
-          </div>
-          <div className='flex justify-between items-center text-md'>
-          <p className='bg-gray-100 p-1 px-2 rounded-xl'>scheduled at <span className='text-green-500 p-2 rounded-xl'>{date}</span></p>
-          <p className='bg-green-50 p-1 px-2 text-green-500 rounded-xl'>ongoing</p>
-          </div>
-          
-          <button onClick={() => navigate("/organizer/match")} className='text-white bg-orange-400 hover:bg-orange-600 px-2 p-1 rounded-xl'>Update score</button>
-        </div>
-
-        <div className='font-bold  bg-gray-50  w-96 h-56 rounded-2xl p-4 space-y-4 shadow-lg'>
-
-          <div className='flex justify-between items-center'>
-          <p className='text-center  bg-gray-100 rounded-xl p-1 px-2 text-sm'>Match 2</p>
-          
-          <p className='p-1 px-2 bg-green-500 text-white rounded-xl font-normal text-sm'>round 3</p>
-          </div>
-          <div className='flex flex-row justify-between text-md items-center space-x-4'>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 1</p>
-            <p className='bg-orange-600 text-white p-1 px-2 rounded-lg'>VS</p>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 2</p>
-          </div>
-          <div className='flex justify-between items-center text-md'>
-          <p className='bg-gray-100 p-1 px-2 rounded-xl'>scheduled at <span className='text-green-500 p-2 rounded-xl'>{date}</span></p>
-          <p className='bg-green-50 p-1 px-2 text-green-500 rounded-xl'>ongoing</p>
-          </div>
-          
-          <button onClick={() => navigate("/organizer/match")} className='text-white bg-orange-400 hover:bg-orange-600 px-2 p-1 rounded-xl'>Update score</button>
-        </div>
-
-
+      <div className='flex flex-row justify-between'>
+        <div className='flex flex-row space-x-4 flex-start'>
+          <button className='border border-orange-500 text-orange-500 p-0 px-4 font-bold rounded-2xl'>All</button>
+          <button className='border border-orange-500 text-orange-500 p-0 px-4 font-bold rounded-2xl'>Round 1</button>
+          <button className='border border-orange-500 text-orange-500 p-0 px-4 font-bold rounded-2xl'>Round 2</button>
+          <button className='border border-orange-500 text-orange-500 p-0 px-4 font-bold rounded-2xl'>Round 3</button>
         
-        <div className='font-bold  bg-gray-50  w-96 h-56 rounded-2xl p-4 space-y-4 shadow-lg'>
-
-          <div className='flex justify-between items-center'>
-          <p className='text-center  bg-gray-100 rounded-xl p-1 px-2 text-sm'>Match 3</p>
-          
-          <p className='p-1 px-2 bg-green-500 text-white rounded-xl font-normal text-sm'>round 1</p>
-          </div>
-          <div className='flex flex-row justify-between text-md items-center space-x-4'>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 1</p>
-            <p className='bg-orange-600 text-white p-1 px-2 rounded-lg'>VS</p>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 2</p>
-          </div>
-          <div className='flex justify-between items-center text-md'>
-          <p className='bg-gray-100 p-1 px-2 rounded-xl'>scheduled at <span className='text-green-500 p-2 rounded-xl'>{date}</span></p>
-          <p className='bg-green-50 p-1 px-2 text-green-500 rounded-xl'>ongoing</p>
-          </div>
-          
-          <button onClick={() => navigate("/organizer/match")} className='text-white bg-orange-400 hover:bg-orange-600 px-2 p-1 rounded-xl'>Update score</button>
         </div>
-
-        <div className='font-bold  bg-gray-50  w-96 h-56 rounded-2xl p-4 space-y-4 shadow-lg'>
-
-          <div className='flex justify-between items-center'>
-          <p className='text-center  bg-gray-100 rounded-xl p-1 px-2 text-sm'>Match 4</p>
-          
-          <p className='p-1 px-2 bg-green-500 text-white rounded-xl font-normal text-sm'>round 2</p>
-          </div>
-          <div className='flex flex-row justify-between text-md items-center space-x-4'>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 1</p>
-            <p className='bg-orange-600 text-white p-1 px-2 rounded-lg'>VS</p>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 2</p>
-          </div>
-          <div className='flex justify-between items-center text-md'>
-          <p className='bg-gray-100 p-1 px-2 rounded-xl'>scheduled at <span className='text-green-500 p-2 rounded-xl'>{date}</span></p>
-          <p className='bg-green-50 p-1 px-2 text-green-500 rounded-xl'>ongoing</p>
-          </div>
-          
-          <button onClick={() => navigate("/organizer/match")} className='text-white bg-orange-400 hover:bg-orange-600 px-2 p-1 rounded-xl'>Update score</button>
-        </div>
-
-        <div className='font-bold  bg-gray-50  w-96 h-56 rounded-2xl p-4 space-y-4 shadow-lg'>
-
-          <div className='flex justify-between items-center'>
-          <p className='text-center  bg-gray-100 rounded-xl p-1 px-2 text-sm'>Match 5</p>
-          
-          <p className='p-1 px-2 bg-green-500 text-white rounded-xl font-normal text-sm'>round 1</p>
-          </div>
-          <div className='flex flex-row justify-between text-md items-center space-x-4'>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 1</p>
-            <p className='bg-orange-600 text-white p-1 px-2 rounded-lg'>VS</p>
-            <p className='bg-orange-50 text-orange-600 w-full text-center p-1 px-2 rounded-xl'>team 2</p>
-          </div>
-          <div className='flex justify-between items-center text-md'>
-          <p className='bg-gray-100 p-1 px-2 rounded-xl'>scheduled at <span className='text-green-500 p-2 rounded-xl'>{date}</span></p>
-          <p className='bg-green-50 p-1 px-2 text-green-500 rounded-xl'>ongoing</p>
-          </div>
-          
-          <button onClick={() => navigate("/organizer/match")} className='text-white bg-orange-400 hover:bg-orange-600 px-2 p-1 rounded-xl'>Update score</button>
+        <div className='bg-gray-100 py-2 px-4 rounded-xl text-blue-gray-900'>
+          {date}
         </div>
       </div>
+      </div>
+
+      <div className='space-y-4'>
+
+      <div className='w-3/4 py-4 px-4 rounded-xl space-y-4 border-2'>
+        <div className='font-poppins p-1 px-2 font-bold w-fit rounded-xl'>Round 1</div>
+          <div className='space-y-4'>
+            {renderInputFieldsAndButtons()}
+        </div>
+      </div>
+
+      <div className='w-3/4 py-4 px-4 rounded-xl space-y-4 border-2'>
+        <div className='font-poppins p-1 px-2 font-bold w-fit rounded-xl'>Round 2</div>
+          <div className='space-y-4'>
+            {renderInputFieldsAndButtons()}
+        </div>
+      </div>
+
+
+      <div className='w-3/4 py-4 px-4 rounded-xl space-y-4 border-2'>
+        <div className='font-poppins p-1 px-2 font-bold w-fit rounded-xl'>Round 3</div>
+          <div className='space-y-4'>
+            {renderInputFieldsAndButtons()}
+        </div>
+      </div>
+
+      </div>
+
+    </div>
+
     </div>
   )
 }
