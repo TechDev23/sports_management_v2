@@ -1,8 +1,8 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Root from "./routes/root";
-import Participant from "./routes/participant";
+import Organizer from "./routes/Organizer";
+import Participant from "./routes/Participant";
 import ErrorPage from "./error-page";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
@@ -12,33 +12,41 @@ import {
   Dashboard,
   Messages,
   Teams,
+  Discover,
   TournamentTracking,
   Competition,
-  Discover,
+  Tournament,
+  Match,
   Participantlogin,
   Participantsignup,
   Organizerlogin,
-  Organizersignup
+  Organizersignup,
+  Feed
 } from "./pages";
 import Sidebar from "./pages/Sidebar";
 import { StepProvider } from "./context/StepContext";
 
 const router = createBrowserRouter([
+
   {
     path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
+    element: <Discover/>,
+    errorElement: <ErrorPage/>,
+  },
+  {
+    path: "organizer/",
+    element: <Organizer />,
     children: [
       {
-        path: "/dashboard",
+        path: "dashboard",
         element: <Dashboard />,
       },
       {
-        path: "/messages",
+        path: "messages",
         element: <Messages />,
       },
       {
-        path: "/tournament-tracking",
+        path: "tournament-tracking",
         element: (
           <StepProvider>
             <TournamentTracking />
@@ -46,47 +54,55 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/teams",
+        path: "teams",
         element: <Teams />,
       },
       {
-        path: "/calendar",
+        path: "calendar",
         element: <Calendar />,
       },
       {
-        path: "/on-going",
+        path: "on-going",
         element: <Competition />,
       },
       {
-        path: "/register",
-        element: <Organizersignup/>
+        path: "tournament",
+        element: <Tournament/>
       },
       {
-        path: "/login",
-        element: <Organizerlogin/>
+        path: "match",
+        element: <Match/>
       }
     ],
   },
   {
-    path: "/sidebar",
+    path: "sidebar",
     element: <Sidebar />,
   },
   {
-    path: "/participant/",
+    path: "participantlogin",
+    element: <Participantlogin/>
+  },
+  {
+    path: "participantregister",
+    element: <Participantsignup/>
+  },
+  {
+    path: "organizerlogin",
+    element: <Organizerlogin/>
+  },
+  {
+    path: "organizerregister",
+    element: <Organizersignup/>
+  },
+  {
+    path: "participant/",
     element: <Participant/>,
     children: [
       {
         path: "discover",
-        element: <Discover/>
+        element: <Feed/>
       },
-      {
-        path: "login",
-        element: <Participantlogin/>
-      },
-      {
-        path: "register",
-        element: <Participantsignup/>
-      }
     ]
     
   }
@@ -98,7 +114,7 @@ function App() {
       <div>
         <Provider store={store}>
           <RouterProvider router={router}>
-            <Root />
+            <Discover/>
           </RouterProvider>
         </Provider>
       </div>

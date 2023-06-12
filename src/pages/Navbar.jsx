@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Navbar,
   MobileNav,
@@ -195,17 +198,30 @@ export default function ComplexNavbar() {
     );
   }, []);
 
+  const navigate = useNavigate();
+
+
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 rounded-none shadow-none">
-      <div className="relative mx-auto flex items-center justify-end gap-6 text-blue-gray-900">
-        <div className="pr-24">
+    <Navbar className="mx-auto max-w-screen p-2 lg:pl-6 rounded-none shadow-none">
+      <div className="mx-auto flex items-center  justify-between  text-blue-gray-900">
+        <div className="">
             <NavList />
         </div>
+
+      <div className="flex flex-row space-x-4">
+
         <div className="flex flex-row-reverse gap-4 items-end justify-end">
           <ProfileMenu />
           <Notionfications/>
           {/* <SearchInput/> */}
         </div>
+        <div className= "flex flex-row space-x-4 text-blue-gray-900 text-md">
+          <button className="px-3 py-1 rounded-2xl hover:shadow-orange-200 hover:bg-orange-50 hover:text-orange-500 transition-all" onClick={()=> navigate("/participantlogin")}>Login</button>
+          <button className="px-3 py-1 rounded-2xl hover:shadow-orange-200 hover:bg-orange-50 hover:text-orange-500 transition-all" onClick={()=> navigate("/organizerlogin")}>Organize an Event</button>
+        </div>
+
+        </div>
+        
       </div>
       <MobileNav open={isNavOpen} className="overflow-scroll">
         <NavList />

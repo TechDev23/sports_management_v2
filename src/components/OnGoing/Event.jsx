@@ -8,8 +8,8 @@ import {
 } from "@material-tailwind/react";
 import { Avatar } from "../index";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchOnGoingTournaments } from "../../redux/slices/Admin/adminActions";
+import { useEffect } from "react";
+import { fetchTournaments } from "../../redux/slices/Tournament/tournamentAction";
 
 export default function Example() {
   const dispatch = useDispatch();
@@ -17,11 +17,11 @@ export default function Example() {
     value: allTournaments,
     isLoading: isTournamentsLoading,
     isError: isErrorOnFetchTournaments,
-  } = useSelector((state) => state.admin.fetchOnGoingTournaments);
+  } = useSelector((state) => state.tournament.fetchTournament);
   console.log("new", allTournaments);
 
   useEffect(() => {
-    dispatch(fetchOnGoingTournaments());
+    dispatch(fetchTournaments());
   }, [dispatch]);
 
   if (isTournamentsLoading) {

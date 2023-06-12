@@ -11,13 +11,14 @@ import {
 } from "@material-tailwind/react";
 import { useSelector, useDispatch } from "react-redux";
 import Select from 'react-select'
-import { createGame } from "../../redux/slices/Admin/adminActions";
+import { createTournament } from "../../redux/slices/Tournament/tournamentAction";
+
 const minDistance = 1;
 
 const AddGame = () => {
   const dispatch = useDispatch();
   const { fetchGames: allGames } = useSelector((state) => state.admin);
-  console.log("fetchGames", allGames) 
+  // console.log("Games", allGames) 
 
   const [value2, setValue2] = useState([0, 5]);
 
@@ -110,7 +111,7 @@ const AddGame = () => {
   })) || [];
 
 
-  const handleAddGame = ()=>{
+  const handleAddGame = async()=>{
     const toSubmit = {
       name: compName,
       description: info, 
@@ -123,8 +124,8 @@ const AddGame = () => {
       start_date: "2023-05-29T07:12:56.222Z",
       end_date: "2023-05-29T07:12:56.222Z"
     }
-    const af = dispatch(createGame(toSubmit))
-    console.log("after submit", af)
+    await dispatch(createTournament(toSubmit))
+    // console.log("after submit", af)
   }
 
   return (

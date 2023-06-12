@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../pages/Sidebar";
 import Navbar from "../pages/Navbar";
 
-export default function Root() {
+export default function Organizer() {
   return (
     <>
       <div className="flex">
@@ -10,7 +10,7 @@ export default function Root() {
           <Sidebar />
         </div>
         <div className="w-screen m-1 ml-2 mt-0 flex flex-col items-center justify-start">
-          <div className="bg-white w-full h-16 flex items-center drop-shadow-xl rounded-lg rounded-t-none rounded-s">
+          <div className=" bg-white w-full h-16 flex items-center drop-shadow-xl rounded-lg rounded-t-none rounded-s sticky">
             <Navbar />
           </div>
           <div className="bg-white mt-4 w-full min-h-screen drop-shadow-2xl rounded-md">
