@@ -21,7 +21,7 @@ export default function Example() {
   console.log("new", allTournaments);
 
   useEffect(() => {
-    dispatch(fetchTournaments());
+    dispatch(fetchTournaments({isActive: true}));
   }, [dispatch]);
 
   if (isTournamentsLoading) {
@@ -93,12 +93,12 @@ export default function Example() {
                     <p className="border  p-1 px-3 rounded-2xl text-gray-600 bg-gray-100">
                       No restrictions
                     </p>
-                    <div className="flex flex-row items-center space-x-1">
+                    {/* <div className="flex flex-row items-center space-x-1">
                       <Avatar />
                       <p className="font-bold text-green-600">
                         +500 participated
                       </p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </CardBody>

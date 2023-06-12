@@ -22,7 +22,11 @@ import {
   Participantsignup,
   Organizerlogin,
   Organizersignup,
-  Feed
+  Feed,
+  Alltours,
+  TourDetails,
+  GameDetails,
+  Apply
 } from "./pages";
 import Sidebar from "./pages/Sidebar";
 import { StepProvider } from "./context/StepContext";
@@ -41,7 +45,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "feed",
-        element: <Admin
+        element: <Alltours/>
+      },
+      {
+        path: "details",
+        element: <TourDetails/>
       }
     ]
   },
@@ -116,6 +124,14 @@ const router = createBrowserRouter([
         path: "discover",
         element: <Feed/>
       },
+      {
+        path: "details",
+        element: <GameDetails/>
+      },
+      {
+        path: "apply",
+        element: <Apply/>
+      }
     ]
     
   }

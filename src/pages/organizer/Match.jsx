@@ -41,37 +41,37 @@ const Match = () => {
         </div>
         <div className='w-full h-full '>
             <div className=''></div>
-            <div>
+            {/* <div>
                 <img className='w-full max-h-[550px] bg-cover rounded-xl' src={badminton_banner} alt='badminton'/>
-            </div>
+            </div> */}
         </div>
 
     
-        <form className='flex flex-col space-y-4 w-full'>
+        <form className='flex flex-col space-y-4 w-full border-2 p-2 rounded-2xl'>
         
 
-    <div className='mx-4 flex flex-row justify-around '>
-        <div className='flex flex-col items-end space-y-4 '>
+    <div className='mx-4 flex flex-col justify-around space-y-4 w-full'>
+        <div className='flex flex-row items-start space-x-4'>
             <p className='text-lg font-bold'>Team 1</p>
-            <div className='flex w-full justify-center items-center space-x-4'>
-                <label htmlFor="team_1">update score </label>
-                <input value={team1} onChange={handleT1}  type="number" id="team_1" name="team_1" min="1" max="36" className='p-1 px-4 border-2  rounded-xl focus:border-orange-600 outline-none'>
+            <div className='flex items-center space-x-4'>
+                <label htmlFor="team_1"></label>
+                <input value={team1} onChange={handleT1}  type="number" id="team_1" name="team_1" min="1" max="21" className='p-1 px-4 border-2  rounded-xl focus:border-orange-600 outline-none'>
                 </input>
             </div>
         </div>
 
-        <div className='flex flex-col items-start space-y-4'>
-            <p className='text-lg font-bold'>Team 2</p>
-            <div className='flex w-full justify-center items-center space-x-4'>
-                <label htmlFor="team_2">update score </label>
-                <input value={team2} onChange={handleT2} type="number" id="team_2" name="team_2" min="1" max="36" className='p-1 px-4 border-2  rounded-xl focus:border-orange-600 outline-none'>
+        <div className=' w-full flex flex-row items-start space-x-4 '>
+            <p className='text-lg font-bold '>Team 2</p>
+            <div className='flex items-center space-x-4'>
+                <label htmlFor="team_2"></label>
+                <input value={team2} onChange={handleT2} type="number" id="team_2" name="team_2" min="1" max="21" className='p-1 px-4 border-2  rounded-xl focus:border-orange-600 outline-none'>
                 </input>
             </div>
         </div>
     </div>
-        <div className='w-full flex flex-row justify-center items-center'>
+        <div className='mt-4 w-full flex flex-row justify-start items-center'>
         
-        <button onClick={postResult} className='text-white p-2 px-4 w-1/4 bg-orange-400 hover:bg-orange-600 font-bold rounded-xl' type='submit'>End game</button>
+        <button onClick={postResult} className='text-white p-2 px-4 w-1/4 bg-orange-400 hover:bg-orange-600 font-bold rounded-xl' type='submit'>Post Score</button>
         </div>
 
         </form>
