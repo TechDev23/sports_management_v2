@@ -12,7 +12,7 @@ export default function Details() {
   useEffect(()=>{
     const fetchData = async () => {
         const response = await dispatch(getTournamentByID({ id: tourID }));
-        console.log('Data:', response.payload); // Access the data from the response
+        // console.log('Data:', response.payload); // Access the data from the response
         setTourDetails(response.payload);
     };
     fetchData();
