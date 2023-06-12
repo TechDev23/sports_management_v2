@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux"
 import { approveTeam, getTeamsByID } from "../redux/slices/Teams/teamActions";
 import { creatGame } from "../redux/slices/Admin/adminActions";
+import { fetchAllPlayers } from "../redux/slices/Participants/participantsActions";
 
 import badminton from '../assets/images/badminton.jpg';
 
@@ -16,6 +17,8 @@ import {
   Typography,
   Button
 } from "@material-tailwind/react";
+import { fetchOrganizationByID } from "../redux/slices/Organizer/organizerActions";
+import { fetchTournaments, getTournamentByID, getTournamentEntries } from "../redux/slices/Tournament/tournamentAction";
 
 const Dashboard = () => {
 
@@ -25,7 +28,7 @@ const Dashboard = () => {
   useEffect(()=>{
     const fetchData = async () => {
       try {
-        const response = await dispatch(getTeamsByID({ id: 1 }));
+        const response = await dispatch(fetchAllPlayers());
         console.log('Data:', response.payload); // Access the data from the response
       } catch (error) {
         console.log('Error:', error);
@@ -35,9 +38,9 @@ const Dashboard = () => {
     fetchData();
   },[dispatch])
 
-  const handleApproveTeam = async (game) => {
+  const handleOnClick = async (data) => {
     try {
-      const response = await dispatch(creatGame(game))
+      const response = await dispatch(getTournamentEntries(data))
       console.log("Create team: ", response.payload)
     } catch (error) {
       console.log('Error:', error);
@@ -46,7 +49,7 @@ const Dashboard = () => {
 
   return (
     <div className='font-bold text-3xl  p-4'>
-    
+    <Button onClick={()=>handleOnClick({id: 17, isApproved: true})}>Test</Button>
 
     <div className="border-b-2 w-full"><p className="bg-gray-100 p-2 px-4 w-fit rounded-xl mt-2 mb-2 text-blue-gray-900">Tournaments</p></div>
 

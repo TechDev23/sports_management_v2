@@ -20,7 +20,8 @@ import {
   Participantlogin,
   Participantsignup,
   Organizerlogin,
-  Organizersignup
+  Organizersignup,
+  Feed
 } from "./pages";
 import Sidebar from "./pages/Sidebar";
 import { StepProvider } from "./context/StepContext";
@@ -100,7 +101,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "discover",
-        element: ""
+        element: <Feed/>
       },
     ]
     

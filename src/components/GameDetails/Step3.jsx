@@ -8,7 +8,6 @@ const TournamentTracking = () => {
   const dispatch = useDispatch();
   const adminState = useSelector((state)=>state.admin.fetchGames)
   const [adminFetchGames, setAdminFetchGames] = useState(adminState)
-  const [count, setCount] = useState(1);
 
   useEffect(() => {
     dispatch(fetchGames());
@@ -19,17 +18,10 @@ const TournamentTracking = () => {
   },[adminFetchGames])
   return (
 
-    <div className='font-bold text-2xl p-2'>New Tournament
-      <div className="mt-5 border-2 px-2">
-      <h2 className="font-bold text-3xl" >Select Games</h2>
-      <div className="mt-5 "></div>
-      
-        <div>
+    <div className='font-bold text-2xl p-2'>
+        <div className="mb-4">
           <AddGame/>
-
         </div>
-      
-      </div>
     </div>
   )
 }

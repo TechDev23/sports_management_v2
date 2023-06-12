@@ -11,9 +11,12 @@ export { default as Match} from './organizer/match'
 
 //  participant
 export { default as Discover} from './participant/Discover'
+export { default as Feed} from './participant/Feed'
 
 //  authentication
 export { default as Participantlogin} from './authentication/Participantlogin'
 export { default as Participantsignup} from './authentication/Participantsignup'
 export { default as Organizerlogin} from './authentication/Organizerlogin'
 export { default as Organizersignup} from './authentication/Organizersignup'
+
+
