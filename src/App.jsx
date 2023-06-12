@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Organizer from "./routes/Organizer";
 import Participant from "./routes/Participant";
+import Admin from "./routes/Admin";
 import ErrorPage from "./error-page";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
@@ -33,6 +34,18 @@ const router = createBrowserRouter([
     element: <Discover/>,
     errorElement: <ErrorPage/>,
   },
+
+  {
+    path: "admin/",
+    element: <Admin/>,
+    children: [
+      {
+        path: "feed",
+        element: <Admin
+      }
+    ]
+  },
+
   {
     path: "organizer/",
     element: <Organizer />,

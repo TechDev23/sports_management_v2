@@ -1,89 +1,105 @@
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"
-import { approveTeam, getTeamsByID } from "../redux/slices/Teams/teamActions";
-import { creatGame } from "../redux/slices/Admin/adminActions";
 import { fetchAllPlayers } from "../redux/slices/Participants/participantsActions";
+
+import { Card, Typography, CardFooter, CardBody, CardHeader, Button } from "@material-tailwind/react";
 
 import badminton from '../assets/images/badminton.jpg';
 
 import { useNavigate } from "react-router-dom";
 
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Button
-} from "@material-tailwind/react";
-import { fetchOrganizationByID } from "../redux/slices/Organizer/organizerActions";
-import { fetchTournaments, getTournamentByID, getTournamentEntries } from "../redux/slices/Tournament/tournamentAction";
+import { fetchTournaments, getTournamentEntries } from "../redux/slices/Tournament/tournamentAction";
 
 const Dashboard = () => {
 
   const navigate = useNavigate();
 
+  const [allTours, setAllTours] = useState([])
   const dispatch = useDispatch();
-  useEffect(()=>{
+  const tourID = localStorage.getItem("createdTournamentID")
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await dispatch(fetchAllPlayers());
-        console.log('Data:', response.payload); // Access the data from the response
+        const response = await dispatch(fetchTournaments({isActive: true}));
+        setAllTours(response.payload)
       } catch (error) {
-        console.log('Error:', error);
+        console.log("Error:", error);
       }
     };
 
     fetchData();
-  },[dispatch])
+  }, [dispatch]);
+  console.log("all tours",allTours)
 
-  const handleOnClick = async (data) => {
-    try {
-      const response = await dispatch(getTournamentEntries(data))
-      console.log("Create team: ", response.payload)
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  };
+
 
   return (
-    <div className='font-bold text-3xl  p-4'>
-    <Button onClick={()=>handleOnClick({id: 17, isApproved: true})}>Test</Button>
+    <div className='  p-4'>
 
-    <div className="border-b-2 w-full"><p className="bg-gray-100 p-2 px-4 w-fit rounded-xl mt-2 mb-2 text-blue-gray-900">Tournaments</p></div>
+    <div className="border-b-2 w-full"><p className="bg-gray-100 p-2 px-4 w-fit rounded-xl mt-2 mb-2 text-blue-gray-900 font-bold text-3xl">Tournaments</p></div>
 
-    <Card className="mt-10 w-80 shadow-lg">
-    <CardHeader color="blue-gray" className="relative h-46">
-      <img src={badminton} alt="img-blur-shadow" layout="fill" />
-    </CardHeader>
-    <CardBody>
-    <div className="flex flex-row justify-between">
-    <Typography variant="h5" color="blue-gray" className="mb-2">
-    Badminton
-  </Typography>
-    <Typography variant="h6" color="green" className="mb-2 bg-green-50 py-1 px-3  rounded-xl w-fit">
-    Active
-  </Typography>
-    </div>
-    <Typography>
-        event started at <span>{}</span>
+    <div className="flex flex-row  gap-5">
 
-      </Typography>
-    
-      <Typography>
-        the great game to play
-      </Typography>
-    </CardBody>
-    <CardFooter className="pt-0">
-    <div className="flex justify-center items-center">
-    
-    <Button onClick={() => navigate('/organizer/tournament')} className="bg-orange-500 hover:bg-orange-700 hover:drop-shadow- hover:drop-shadow-none font-bold text-white items-center">View Matches</Button>
-    </div>
-    </CardFooter>
-  </Card>
+    {
+    allTours.map((tour, index) => (
+      <>
 
+      <Card className="mt-10 w-96 shadow-lg">
+      <CardHeader color="blue-gray" className="relative h-46">
+        <img src={badminton} alt="img-blur-shadow" layout="fill" />
+      </CardHeader>
+      <CardBody className="space-y-3">
+      <div className="flex flex-row justify-between">
+        <Typography variant="h5" color="blue-gray" className="mb-2 bg-gray-100 rounded-2xl p-1 px-2">
+          {tour.name}
+        </Typography>
+        { tour.isActive ?
+          (<Typography variant="h5" color="green" className="mb-2 bg-green-50 py-1 px-2  rounded-2xl w-fit">Active</Typography>) 
+          :
+        (<Typography variant="h5" color="red" className="mb-2 bg-red-50 py-1 px-3  rounded-2xl w-fit">Ended</Typography>)
+        
+        }
+          </div>
+  
+        <div className="text-sm flex flex-row justify-between font-normal items-center">
+          <Typography>{tour.start_date.split('T')[0]}
+          </Typography>
+          <p className="font-bold text-blue-gray-900">---- to ----</p>
+          <Typography>
+            {tour.end_date.split('T')[0]}
+          </Typography>
+      
+        </div>
+  
+        <div className="flex flex-col border-y py-1">
+        <div className="flex justify-between items-center">
+          <p className="text-sm font-bold text-blue-gray-900 px-1 rounded-2xl bg-gray-100 w-fit">details</p>
+          <p className="text-sm font-bold px-1 rounded-2xl  w-fit text-blue-gray-900 bg-gray-100">Max team size : {tour.team_size}</p>
+        
+        </div>
+          <Typography>
+            {tour.description}
+          </Typography>
+          
+  
+        </div>
+      </CardBody>
+      <CardFooter className="pt-0">
+      <div className="flex justify-start items-center">
+      
+      <Button onClick={() => navigate('/organizer/tournament')} className="bg-orange-500 hover:bg-orange-700 hover:drop-shadow- hover:drop-shadow-none font-bold text-white items-center">View Details</Button>
+      </div>
+      </CardFooter>
+    </Card>
 
+      </>
+    ))
+  }
+
+  </div>
+
+   
     </div>
   )
 }
