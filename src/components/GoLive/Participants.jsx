@@ -1,118 +1,109 @@
-
-import {
-  List,
-  ListItem,
-  ListItemPrefix,
-  Avatar,
-  Card,
-  Typography,
-} from "@material-tailwind/react";
+import { useDispatch } from "react-redux";
+import { CheckCircleIcon, CursorArrowRaysIcon } from "@heroicons/react/24/solid";
+import { getTournamentEntries } from "../../redux/slices/Tournament/tournamentAction";
+import { useEffect, useState } from "react";
+import { approveTeam } from "../../redux/slices/Teams/teamActions";
+import { Button, Chip, Typography } from "@material-tailwind/react";
+import { ImCross } from 'react-icons/im'
 const Participants = () => {
+  const dispatch = useDispatch();
+  const [allTeams, setAllTeams] = useState([]);
+  const tourID = localStorage.getItem("createdTournamentID")
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await dispatch(
+          getTournamentEntries({ id: tourID, isApproved:  })
+        );
+        console.log('Data:', response.payload); // Access the data from the response
+        setAllTeams(response.payload);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  const handleApproveTeam = async (id, isApprove) => {
+    try {
+      const response = await dispatch(approveTeam({id: id, isApprove: isApprove}))
+      // console.log("Aprrove team: ", response.payload)
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  const handleRejectTeam = async (id, isApprove) => {
+    try {
+      const response = await dispatch(approveTeam({id: id, isApprove: isApprove}))
+      // console.log("Aprrove team: ", response.payload)
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
   
+
   return (
-    <div className="flex flex-row w-full space-x-5">
-      <div className="flex-col w-full p-2">
-        <h2 className='font-bold text-3xl'>Active Tournament</h2>
-        <div className="flex flex-row  min-w-screen px-5 mt-14 space-x-9 items-center justify-center content-center">
-          <div style={{width: "100%", height: "60vh"}} className="border-4 " >
-          <Card className="w-full">
-      <List>
-        <ListItem>
-          <ListItemPrefix>
-            <Avatar variant="circular" alt="candice" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-          </ListItemPrefix>
-          <div>
-            <Typography variant="h6" color="blue-gray">
-              Candice Wu
-            </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
-              Software Engineer @ Material Tailwind
-            </Typography>
-          </div>
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Avatar variant="circular" alt="alexander" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-          </ListItemPrefix>
-          <div>
-            <Typography variant="h6" color="blue-gray">
-              Alexander
-            </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
-              Backend Developer @ Material Tailwind
-            </Typography>
-          </div>
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Avatar variant="circular" alt="emma" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-          </ListItemPrefix>
-          <div>
-            <Typography variant="h6" color="blue-gray">
-              Emma Willever
-            </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
-              UI/UX Designer @ Material Tailwind
-            </Typography>
-          </div>
-        </ListItem>
-      </List>
-    </Card>
+<>
+    <div className="w-full">
+      <div className="">
+        <Typography variant="h4">Teams</Typography>
+      </div>
+    <div className="w-full rounded-md">
 
+      {allTeams && allTeams.map((data, index) => (
+        <>
+          <div key={index} className="w-full shadow-md rounded-md my-2 p-4 flex flex-row justify-between items-center ">
+            <div className="flex flex-col gap-2 items-start">
+              <div className="flex gap-3">
+                <Typography variant="h5" className="capitalize font-semibold ">{data.name}</Typography>
+                {
+                  data.isApproved ? <Chip value="approved" variant="outlined" className="text-green-200 border-green-200 border-none" icon={<CheckCircleIcon className="text-green-200" />} />:
+                  <Chip value="not approved" variant="outlined" className="text-red-200 border-none" icon={<ImCross className="text-red-200" />} />
+                }
+                
+              </div>
+              <div className="flex flex-row items-start gap-20">
+                <div className="flex flex-col gap-2">
+                  <span className=" text-[14px] text-gray-700 font-medium">
+                    Created by: {data.creator.name}
+                  </span>
+              <span className="text-[13px]">{data.members_count} Member</span>
+                  {/* <span className="rounded-full -mt-1 bg-gray-200 border-gray-400 border-[1px] px-6 py-1 text-[12px]">
+                    Cricket
+                  </span> */}
+                </div>
+
+              </div>
             </div>
-          <div style={{width: "100%", height: "60vh"}} className="border-4 " >
-          <Card className="w-full">
-      <List>
-        <ListItem>
-          <ListItemPrefix>
-            <Avatar variant="circular" alt="candice" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-          </ListItemPrefix>
-          <div>
-            <Typography variant="h6" color="blue-gray">
-              Candice Wu
-            </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
-              Software Engineer @ Material Tailwind
-            </Typography>
-          </div>
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Avatar variant="circular" alt="alexander" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-          </ListItemPrefix>
-          <div>
-            <Typography variant="h6" color="blue-gray">
-              Alexander
-            </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
-              Backend Developer @ Material Tailwind
-            </Typography>
-          </div>
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Avatar variant="circular" alt="emma" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80" />
-          </ListItemPrefix>
-          <div>
-            <Typography variant="h6" color="blue-gray">
-              Emma Willever
-            </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
-              UI/UX Designer @ Material Tailwind
-            </Typography>
-          </div>
-        </ListItem>
-      </List>
-    </Card>
 
+            <div className="space-x-2">
+              <Button
+                type="button"
+                color="amber"
+                onClick={() => handleApproveTeam(data.id, true)}
+                variant="text" 
+              >
+                Accept
+              </Button>
+              <Button
+                type="button"
+                color="red"
+                onClick={() => handleRejectTeam(data.id, false)}
+                variant="text" 
+              >
+                Reject
+              </Button>
+            </div>
           </div>
-          </div> 
+        </>
+      ))}
     </div>
-    
 
-{/**side component completion checking */}
-
-    </div>
-)
-}
+      </div>
+    </>
+  );
+};
 export default Participants;
