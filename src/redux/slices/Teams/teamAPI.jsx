@@ -14,7 +14,7 @@ export const getTeamByIDAPI = async (requestData)=>{
 export const approveTeamAPI = async(requestData)=>{
     try {
         console.log("approve team", requestData);
-        const resposne = await axios.post(`/team/${requestData.id}/status?isApproved=${requestData.isApprove}`) 
+        const resposne = await axios.post(`/team/${requestData.id}/status?isApprove=${requestData.isApproved}`) 
         return resposne.data
     } catch (error) {
         console.log("Error while call approveTeamAPI", error);

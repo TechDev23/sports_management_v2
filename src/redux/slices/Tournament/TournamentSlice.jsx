@@ -100,6 +100,7 @@ const tournamentSlice = createSlice({
               })
             .addCase(createTournamentFixtures.rejected, (state, action) => {
                 console.log("Error while creating game", action.error.message);
+                state.createTournamentFixtures.isLoading = false;
                 state.createTournamentFixtures.isError = true;
               });
 

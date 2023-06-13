@@ -6,6 +6,7 @@ import {
   getMatchScore,
   postMatchScore,
   postMatchResult,
+  createTournamentFixtures,
 } from "../../redux/slices/Tournament/tournamentAction";
 import {
   Button,
@@ -16,6 +17,10 @@ import {
   Input,
   Spinner,
 } from "@material-tailwind/react";
+
+import {
+  ArrowPathIcon,
+} from "@heroicons/react/24/outline";
 
 
 function ScoreDialog({ open, handleClose, handleScoreChange, team1Score, team2Score, handlePostMatchScore, postScoreState }) {
@@ -92,7 +97,7 @@ function WinnerDialog({ open, handleClose, winnerId, setWinnerId, handlePostWinn
 
 
 export default function Rosters() {
-  const { postMatchResult:postResultState , createTournamentFixtures:createFixtureState, getTournamentFixtures:getTourFixState, postMatchScore:postScoreState } = useSelector((state)=>state.tournament)
+  const { postMatchResult:postResultState , createTournamentFixtures: createFixtureState, getTournamentFixtures:getTourFixState, postMatchScore:postScoreState } = useSelector((state)=>state.tournament)
 
   const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
   const [winnerDialogOpen, setWinnerDialogOpen] = useState(false);
@@ -186,8 +191,24 @@ export default function Rosters() {
       console.log("Error while posting match winner")
     }
   }
+
+  const handleCreateFixtures = async()=>{
+    await dispatch(createTournamentFixtures({id: tourID}))
+    console.log("create fixture staet", createFixtureState)
+    const response = await dispatch(getTournamentFixtures({ id: tourID }));
+    console.log("Create fixtures: ", response.payload);
+    setTourFixtures(response.payload);
+  }
   return (
-    <div>
+    <div className="flex flex-col gap-2">
+      <div>
+
+      <Button onClick={handleCreateFixtures} variant="outlined" color="orange" className={`flex items-center gap-3`}>
+        Create fixtures
+        <ArrowPathIcon strokeWidth={2} className={`h-5 w-5 ${(createFixtureState.isLoading )? "animate-spin" : ""}`}
+/>
+      </Button>
+      </div>
       {mappedMatches.map((roundMatches, index) => (
         <>
           <div
@@ -245,7 +266,7 @@ export default function Rosters() {
                     handleClose={handleCloseWinnerDialog}
                     winnerId={winnerId}
                     setWinnerId={setWinnerId}
-                    handlePostWinner={() => handlePostWinner({ match_id: match.id })}
+                    handlePostWinner={()=>handlePostWinner({ match_id: match.id })}
                     postResultState={postResultState}
                   />
                 </>

@@ -44,7 +44,7 @@ export const getTournamentEntriesAPI = async(reqData) =>{
 // -------------------
 export const createTournamentFixturesAPI = async(reqData) =>{
     try {
-        const res = await axios.post(`/tournament/${reqData.id}/fixtures`)
+        const res = await axios.post(`/tournament/${reqData.id}/fixtures`, reqData)
         return res.data
     } catch (error) {
         console.log("Error while call get tournament by id", error);

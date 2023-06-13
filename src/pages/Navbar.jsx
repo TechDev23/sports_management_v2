@@ -55,8 +55,15 @@ const profileMenuItems = [
 ];
 
 function ProfileMenu() {
+  const navigate = useNavigate()
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const closeMenu = () => setIsMenuOpen(false);
+  const handleSignOut = () => {
+    // Delete the 'participant' item from localStorage
+    localStorage.removeItem("participant");
+    window.location.reload();
+    navigate('/participant/discover')
+  };
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -86,7 +93,13 @@ function ProfileMenu() {
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={() => {
+                if (label === "Sign Out") {
+                  handleSignOut();
+                } else {
+                  closeMenu();
+                }
+              }}
               className={`flex items-center gap-2 rounded hover:bg-orange-50 ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -227,7 +240,7 @@ export default function ComplexNavbar() {
               </button>
               <button
                 className="px-3 py-1 rounded-2xl hover:shadow-orange-200 hover:bg-orange-50 hover:text-orange-500 transition-all"
-                onClick={() => navigate("/organizerlogin")}
+                onClick={() => navigate("/organizer/tournament-tracking")}
               >
                 Organize an Event
               </button>

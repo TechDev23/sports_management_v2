@@ -59,7 +59,16 @@ const Participants = () => {
   
   const handleApproveTeam = async (id, isApprove) => {
     try {
-      await dispatch(approveTeam({id: id, isApproved: isApprove}))
+      await dispatch(approveTeam({id: id, isApproved: true}))
+      setAllTeams(prevTeams => {
+        return prevTeams.map(team => {
+          if (team.id === id) {
+            // Update the team's isApproved property
+            return { ...team, isApproved: true };
+          }
+          return team;
+        });
+      });
     } catch (error) {
       console.log('Error:', error);
     }
@@ -69,6 +78,16 @@ const Participants = () => {
     try {
      await dispatch(approveTeam({id: id, isApproved: false}))
       // console.log("Aprrove team: ", response.payload)
+      setAllTeams(prevTeams => {
+        return prevTeams.map(team => {
+          if (team.id === id) {
+            // Update the team's isApproved property
+            return { ...team, isApproved: false };
+          }
+          return team;
+        });
+      });
+  
     } catch (error) {
       console.log('Error:', error);
     }

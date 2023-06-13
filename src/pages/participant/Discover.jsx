@@ -60,7 +60,7 @@ const Discover = () => {
           </div>
 
           <div className="flex flex-row  gap-5">
-            {allTours.map((tour, index) => (
+            {allTours?.map((tour, index) => (
               <>
                 <Card key={index} className="inline-block mt-10 shadow-lg">
                   {/* <CardHeader color="blue-gray" className="relative h-20 w-36 overflow-hidden">
