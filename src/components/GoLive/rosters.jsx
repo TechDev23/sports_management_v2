@@ -96,7 +96,7 @@ function WinnerDialog({ open, handleClose, winnerId, setWinnerId, handlePostWinn
 }
 
 
-export default function Rosters() {
+export default function Rosters2() {
   const { postMatchResult:postResultState , createTournamentFixtures: createFixtureState, getTournamentFixtures:getTourFixState, postMatchScore:postScoreState } = useSelector((state)=>state.tournament)
 
   const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
