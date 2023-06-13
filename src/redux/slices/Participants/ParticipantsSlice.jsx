@@ -1,16 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllPlayers, registerPlayer } from "./participantsActions";
+import { fetchAllPlayers, joinTournament, registerPlayer } from "./participantsActions";
 
 
 const initialState = {
     fetchAllPlayers: {isLoading: false, value: [], isError: false},
-    registerPlayer: {isLoading: false, value:{}, isError: false}
+    registerPlayer: {isLoading: false, value:{}, isError: false},
+    joinTournament: {isLoading: false, value:{}, isError: false}
 }
 
 const participantsSlice = createSlice({
     name: "participants",
     initialState,
-    reducers: {},
+    reducers: {
+      setParticipant: (state, action)=>{
+        state.registerPlayer = action.payload
+      }
+    },
     extraReducers:(builder)=>{
         const setAsyncState = (state, action) => {
             state.isLoading = action.meta.requestStatus === "pending";
@@ -38,6 +43,7 @@ const participantsSlice = createSlice({
           })
           .addCase(registerPlayer.fulfilled, (state, action) => {
             setAsyncState(state.registerPlayer, action);
+            localStorage.setItem("participant", JSON.stringify(action.payload))
           })
           .addCase(registerPlayer.rejected, (state, action) => {
             console.log("Error while fetching games", action.error.message);
@@ -45,8 +51,21 @@ const participantsSlice = createSlice({
           })
 
           
+          builder
+          .addCase(joinTournament.pending, (state) => {
+            state.joinTournament.isLoading = true;
+          })
+          .addCase(joinTournament.fulfilled, (state, action) => {
+            setAsyncState(state.joinTournament, action);
+          })
+          .addCase(joinTournament.rejected, (state, action) => {
+            console.log("Error while fetching games", action.error.message);
+            state.joinTournament.isError = true;
+          })
+
+          
     }
 })
 
-
+export const { setParticipant } = participantsSlice.actions;
 export default participantsSlice

@@ -5,6 +5,10 @@ import { createOrganization } from "../../redux/slices/Organizer/organizerAction
 const Step1 = () => {
   const dispatch = useDispatch();
 
+  // check if org exists
+  const organizationData = localStorage.getItem("org");
+  const { id: pid } = organizationData ? JSON.parse(organizationData) : {};
+
   const { createOrg: createOrgsState } = useSelector(
     (state) => state.organizer
   );
@@ -22,8 +26,10 @@ const Step1 = () => {
   };
 
   const handleCreateOrg = async (name, email) => {
+    console.log("name:",name)
+    console.log("email:",email)
     try {
-      const response = await dispatch(createOrganization({ name, email }));
+      const response = await dispatch(createOrganization({ name:name, email:email }));
       console.log("Created organization: ", response.payload);
     } catch (error) {
       console.log("Error:", error);
@@ -33,10 +39,10 @@ const Step1 = () => {
   return (
     <>
       <div className="container px-5 py-24 mx-auto flex items-center justify-center flex-col bg-white">
-        {createOrgsState.isSuccess ? (
+        {(organizationData !== null) && createOrgsState.isSuccess ? (
           <>
             <div className="flex items-center justify-center mx-auto text-xl font-bold font-poppins">
-              Details Saved
+              Organizational Details Saved
             </div>
           </>
         ) : (
@@ -80,7 +86,7 @@ const Step1 = () => {
               </div>
 
               <button
-                onClick={() => handleCreateOrg("test", "test@gmail.com")}
+                onClick={() => handleCreateOrg(name, email)}
                 className="flex items-center justify-center text-white bg-orange-400 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded text-lg px-auto"
               >
                 {createOrgsState.isLoading ? (

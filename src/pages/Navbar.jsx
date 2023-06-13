@@ -179,14 +179,17 @@ function SearchInput() {
   );
 }
 
-function Notionfications(){
-  return(
+function Notionfications() {
+  return (
     <Badge color="orange" content="5" withBorder placement="bottom-end">
-    <IconButton variant="text" className="hover:bg-orange-50 text-black border-2 border-orange-50 hover:text-orange-600 active:bg-orange-100">
-      <BellAlertIcon className="h-4 w-4" />
-    </IconButton>
-  </Badge>
-  )
+      <IconButton
+        variant="text"
+        className="hover:bg-orange-50 text-black border-2 border-orange-50 hover:text-orange-600 active:bg-orange-100"
+      >
+        <BellAlertIcon className="h-4 w-4" />
+      </IconButton>
+    </Badge>
+  );
 }
 export default function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
@@ -200,28 +203,37 @@ export default function ComplexNavbar() {
 
   const navigate = useNavigate();
 
-
   return (
     <Navbar className="mx-auto max-w-screen p-2 lg:pl-6 rounded-none shadow-none">
       <div className="mx-auto flex items-center  justify-between  text-blue-gray-900">
         <div className="">
-            <NavList />
+          <NavList />
         </div>
 
-      <div className="flex flex-row space-x-4">
-
-        <div className="flex flex-row-reverse gap-4 items-end justify-end">
-          <ProfileMenu />
-          <Notionfications/>
-          {/* <SearchInput/> */}
+        <div className="flex flex-row space-x-4">
+          {localStorage.getItem("participant") ? (
+            <div className="flex flex-row-reverse gap-4 items-end justify-end">
+              <ProfileMenu />
+              <Notionfications />
+              {/* <SearchInput/> */}
+            </div>
+          ) : (
+            <div className="flex flex-row space-x-4 text-blue-gray-900 text-md">
+              <button
+                className="px-3 py-1 rounded-2xl hover:shadow-orange-200 hover:bg-orange-50 hover:text-orange-500 transition-all"
+                onClick={() => navigate("/participantlogin")}
+              >
+                Login
+              </button>
+              <button
+                className="px-3 py-1 rounded-2xl hover:shadow-orange-200 hover:bg-orange-50 hover:text-orange-500 transition-all"
+                onClick={() => navigate("/organizerlogin")}
+              >
+                Organize an Event
+              </button>
+            </div>
+          )}
         </div>
-        <div className= "flex flex-row space-x-4 text-blue-gray-900 text-md">
-          <button className="px-3 py-1 rounded-2xl hover:shadow-orange-200 hover:bg-orange-50 hover:text-orange-500 transition-all" onClick={()=> navigate("/participantlogin")}>Login</button>
-          <button className="px-3 py-1 rounded-2xl hover:shadow-orange-200 hover:bg-orange-50 hover:text-orange-500 transition-all" onClick={()=> navigate("/organizerlogin")}>Organize an Event</button>
-        </div>
-
-        </div>
-        
       </div>
       <MobileNav open={isNavOpen} className="overflow-scroll">
         <NavList />

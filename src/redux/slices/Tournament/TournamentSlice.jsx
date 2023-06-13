@@ -8,27 +8,28 @@ import { fetchTournaments, createTournament, getTournamentByID, getTournamentEnt
 } from "./tournamentAction";
 
 const initialState = {
-  fetchTournament: { isLoading: false, value: [], isError: false },
+  fetchTournament: { isLoading: false, value: [], isError: false, isSuccess: false },
   createTournament: {
     value: {},
     isLoading: false,
     isSuccess: false,
-    isError: false 
+    isError: false ,
   },
-  getTournamentByID: { isLoading: false, value: {}, isError: false },
-  getTournamentEntries: { isLoading: false, value: {}, isError: false },
+  getTournamentByID: { isLoading: false, value: {}, isError: false, isSuccess: false },
+  getTournamentEntries: { isLoading: false, value: {}, isError: false, isSuccess: false },
   // ------------
-  createTournamentFixtures: { isLoading: false, value: {}, isError: false },
-  getTournamentFixtures: { isLoading: false, value: {}, isError: false },
-  postMatchResult: { isLoading: false, value: {}, isError: false },
-  getMatchScore:  { isLoading: false, value: {}, isError: false },
-  postMatchScore: { isLoading: false, value: {}, isError: false }
+  createTournamentFixtures: { isLoading: false, value: {}, isError: false, isSuccess: false },
+  getTournamentFixtures: { isLoading: false, value: [], isError: false, isSuccess: false },
+  postMatchResult: { isLoading: false, value: {}, isError: false, isSuccess: false },
+  getMatchScore:  { isLoading: false, value: {}, isError: false, isSuccess: false },
+  postMatchScore: { isLoading: false, value: {}, isError: false, isSuccess: false }
 };
 
 const tournamentSlice = createSlice({
     name:"tournament",
     initialState,
-    reducers:{},
+    reducers:{
+    },
     extraReducers:(builder) =>{
         const setAsyncState = (state, action) => {
             state.isLoading = action.meta.requestStatus === "pending";
@@ -155,6 +156,5 @@ const tournamentSlice = createSlice({
               });
     }
 })
-
 
 export default tournamentSlice

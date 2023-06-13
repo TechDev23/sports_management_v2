@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
 import {
   Input,
-  Option,
-  ButtonGroup,
   Button,
   Textarea,
   Typography,
@@ -15,7 +11,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Select from "react-select";
 import { createTournament } from "../../redux/slices/Tournament/tournamentAction";
 
-const minDistance = 1;
 
 const AddGame = () => {
   const dispatch = useDispatch();
@@ -24,7 +19,9 @@ const AddGame = () => {
     (state) => state.tournament
   );
   console.log("creat tour", createTrmnt);
-  const orgID = localStorage.getItem("orgID");
+
+  const organizationData = localStorage.getItem("org");
+  const { id: orgID } = organizationData ? JSON.parse(organizationData) : {};
   console.log("orgid", orgID);
 
   const [value2, setValue2] = useState([0, 5]);
@@ -33,7 +30,7 @@ const AddGame = () => {
   const [sport, setSport] = useState("");
   const [sportId, setSportId] = useState("");
   const [teamSize, setTeamSize] = useState(null);
-  const [totalMatches, setTotalMatches] = useState(null);
+  const [totalMatches, setTotalMatches] = useState(0);
   const [maxTeams, setMaxTeams] = useState(null);
   const [info, setInfo] = useState("");
 
@@ -42,10 +39,6 @@ const AddGame = () => {
   const [startTime, setStartTime] = useState(""); // state for start date
   const [endTime, setEndTime] = useState(""); // state for end date
 
-  console.log("start time", startTime);
-  console.log("start date", startDate);
-  console.log("end date", endDate);
-  console.log("end time", endTime);
   const handleCompNameChange = (e) => {
     setCompName(e.target.value);
   };
@@ -122,13 +115,17 @@ const AddGame = () => {
             />
             <Input
               value={maxTeams}
-              onChange={(e) => setMaxTeams(e.target.value)}
+              onChange={(e) => {
+                const newMaxTeams = e.target.value;
+                setMaxTeams(newMaxTeams);
+                setTotalMatches(newMaxTeams - 1);
+              }}
               label="Maximum Team"
               color="orange"
             />
             <Input
               value={totalMatches}
-              onChange={(e) => setTotalMatches(e.target.value)}
+              // onChange={(e) => setTotalMatches(e.target.value)}
               label="Total Matches to be played"
               color="orange"
             />

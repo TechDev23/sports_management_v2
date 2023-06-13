@@ -30,6 +30,7 @@ import {
 } from "./pages";
 import Sidebar from "./pages/Sidebar";
 import { StepProvider } from "./context/StepContext";
+import Tournaments from "./routes/Tournaments";
 
 const router = createBrowserRouter([
 
@@ -42,9 +43,10 @@ const router = createBrowserRouter([
   {
     path: "admin/",
     element: <Admin/>,
+    errorElement: <ErrorPage/>,
     children: [
       {
-        path: "feed",
+        path: "",
         element: <Alltours/>
       },
       {
@@ -57,6 +59,7 @@ const router = createBrowserRouter([
   {
     path: "organizer/",
     element: <Organizer />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: "dashboard",
@@ -77,59 +80,82 @@ const router = createBrowserRouter([
       {
         path: "teams",
         element: <Teams />,
+        errorElement: <ErrorPage/>,
       },
       {
         path: "calendar",
         element: <Calendar />,
+        errorElement: <ErrorPage/>,
       },
       {
         path: "on-going",
         element: <Competition />,
+        errorElement: <ErrorPage/>,
       },
       {
         path: "tournament",
-        element: <Tournament/>
+        element: <Tournament/>,
+        errorElement: <ErrorPage/>,
       },
       {
         path: "match",
-        element: <Match/>
+        element: <Match/>,
+        errorElement: <ErrorPage/>,
       }
     ],
   },
   {
     path: "sidebar",
     element: <Sidebar />,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "participantlogin",
-    element: <Participantlogin/>
+    element: <Participantlogin/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "participantregister",
-    element: <Participantsignup/>
+    element: <Participantsignup/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "organizerlogin",
-    element: <Organizerlogin/>
+    element: <Organizerlogin/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "organizerregister",
-    element: <Organizersignup/>
+    element: <Organizersignup/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "participant/",
     element: <Participant/>,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: "discover",
         element: <Feed/>
+      },
+    ]
+    
+  },
+  {
+    path: "tournament/",
+    element: <Tournaments/>,
+    errorElement: <ErrorPage/>,
+    children: [
+      {
+        path: ":id",
+        element: <GameDetails/>,
       },
       {
         path: "details",
         element: <GameDetails/>
       },
       {
-        path: "apply",
+        path: ":id/apply",
         element: <Apply/>
       }
     ]

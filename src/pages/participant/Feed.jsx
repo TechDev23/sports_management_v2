@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 // import { fetchAllPlayers } from "../redux/slices/Participants/participantsActions";
 
 import { Card, Typography, CardFooter, CardBody, CardHeader, Button } from "@material-tailwind/react";
@@ -13,7 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { fetchTournaments } from "../../redux/slices/Tournament/tournamentAction";
 
 const Feed = () => {
-
+  const { registerPlayer: participantSignup } = useSelector((state) => state.participants);
+  console.log("signed participant", participantSignup)
   const navigate = useNavigate();
 
   const [allTours, setAllTours] = useState([])
@@ -49,11 +50,11 @@ const Feed = () => {
     allTours.map((tour, index) => (
       <>
 
-      <Card className="mt-10 w-96 shadow-lg">
-      <CardHeader color="blue-gray" className="relative h-46">
-        <img src={badminton} alt="img-blur-shadow" layout="fill" />
-      </CardHeader>
-      <CardBody className="space-y-3">
+      <Card key={index} className="inline-block mt-10 shadow-lg">
+      {/* <CardHeader color="blue-gray" className="relative h-20 w-36 overflow-hidden">
+        <img src={badminton} alt="img-blur-shadow w-auto " layout="fill" />
+      </CardHeader> */}
+      <CardBody className="space-y-3 w-auto">
       <div className="flex flex-row justify-between">
         <Typography variant="h5" color="blue-gray" className="mb-2 bg-gray-100 rounded-2xl p-1 px-2">
           {tour.name}
@@ -92,7 +93,7 @@ const Feed = () => {
       <CardFooter className="pt-0">
       <div className="flex justify-start items-center">
       
-      <Button onClick={() => navigate('/participant/details')} className="bg-orange-500 hover:bg-orange-700 hover:drop-shadow- hover:drop-shadow-none font-bold text-white items-center">View Details</Button>
+      <Button onClick={() => navigate(`/tournament/${tour.id}`)} className="bg-orange-500 hover:bg-orange-700 hover:drop-shadow- hover:drop-shadow-none font-bold text-white items-center">View Details</Button>
       </div>
       </CardFooter>
     </Card>

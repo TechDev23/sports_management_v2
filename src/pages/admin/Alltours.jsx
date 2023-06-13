@@ -39,18 +39,19 @@ const Alltours = () => {
 
 
   return (
-    <div className='  p-4'>
+    <div className='p-4'>
 
     <div className="border-b-2 w-full"><p className="bg-gray-100 p-2 px-4 w-fit rounded-xl mt-2 mb-2 text-blue-gray-900 font-bold text-3xl">Tournaments</p></div>
 
-    <div className="flex flex-row  gap-5">
+    <div className="flex flex-wrap gap-5">
 
     {
     allTours.map((tour, index) => (
       <>
+      <div key={index}>
 
-      <Card className="mt-10 w-96 shadow-lg">
-      <CardHeader color="blue-gray" className="relative h-46">
+      <Card className="mt-10 w-full shadow-lg">
+    <CardHeader color="blue-gray" className="relative h-48">
         <img src={badminton} alt="img-blur-shadow" layout="fill" />
       </CardHeader>
       <CardBody className="space-y-3">
@@ -61,8 +62,8 @@ const Alltours = () => {
         { tour.isActive ?
           (<Typography variant="h5" color="green" className="mb-2 bg-green-50 py-1 px-2  rounded-2xl w-fit">Active</Typography>) 
           :
-        (<Typography variant="h5" color="red" className="mb-2 bg-red-50 py-1 px-3  rounded-2xl w-fit">Ended</Typography>)
-        
+          (<Typography variant="h5" color="red" className="mb-2 bg-red-50 py-1 px-3  rounded-2xl w-fit">Ended</Typography>)
+          
         }
           </div>
   
@@ -97,6 +98,7 @@ const Alltours = () => {
       </CardFooter>
     </Card>
 
+        </div>
       </>
     ))
   }

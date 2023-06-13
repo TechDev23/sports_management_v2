@@ -4,6 +4,7 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerPlayer } from '../../redux/slices/Participants/participantsActions'
+import { setParticipant } from '../../redux/slices/Participants/ParticipantsSlice'
 
 const Participantsignup = () => {
   const { registerPlayer: participantSignup } = useSelector((state) => state.participants);
@@ -17,20 +18,23 @@ const Participantsignup = () => {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    console.log(email);
+    // console.log(email);
   }
 
   const handlePassChange = (e) => {
     setPassword(e.target.value);
-    console.log(pass);
+    // console.log(pass);
   }
 
   const addParticipant =async ()=> {
 
-    const dt = await dispatch(registerPlayer({name: email, email: pass}))
-    if(dt.meta.requestStatus == "fulfilled"){
+    const response = await dispatch(registerPlayer({name: email, email: pass}))
+    if (response.meta.requestStatus === "fulfilled") {
+      // Dispatch the setParticipant action to update the state
+      dispatch(setParticipant(response.payload));
       navigate('/participant/discover')
     }
+
 
   }
 

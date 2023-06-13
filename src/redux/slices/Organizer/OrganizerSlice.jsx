@@ -38,7 +38,7 @@ const organizerSlice = createSlice({
             })
             .addCase(createOrganization.fulfilled, (state, action) => {
               setAsyncState(state.createOrg, action);
-              localStorage.setItem("orgID", action.payload.id)
+              localStorage.setItem("org", JSON.stringify(action.payload))
             })
             .addCase(createOrganization.rejected, (state, action) => {
               console.log("Error while fetching games", action.error.message);

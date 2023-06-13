@@ -54,6 +54,7 @@ export const createTournamentFixturesAPI = async(reqData) =>{
 
 export const getTournamentFixturesAPI = async(reqData) =>{
     try {
+        // console.log("data from getTournameFixtureAPI ", reqData)
         const res = await axios.get(`/tournament${reqData.id}/fixtures`)
         return res.data
     } catch (error) {
@@ -64,7 +65,7 @@ export const getTournamentFixturesAPI = async(reqData) =>{
 
 export const postMatchResultAPI = async(reqData)=>{
     try {
-        const res = await axios.post(`/tournament${reqData.id}/match/${reqData.match_id}`, reqData)
+        const res = await axios.post(`/tournament${reqData.id}/match/${reqData.match_id}?winner_id=${reqData.winner_id}`,  {winner_id: reqData.winner_id})
         return res.data
     } catch (error) {
         console.log("Error while call post match result", error);
