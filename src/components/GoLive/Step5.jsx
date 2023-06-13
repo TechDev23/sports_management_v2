@@ -1,6 +1,6 @@
 // import { Input, Select, Option, ButtonGroup, Button, Textarea } from "@material-tailwind/react";
 import { useState } from 'react';
-import Rosters from './Rosters';
+import Rosters from './rosters';
 import Details from '../Details';
 
 import {Participants} from '../index';
