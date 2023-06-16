@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getTournamentFixtures,
-  getMatchScore,
   postMatchScore,
   postMatchResult,
   createTournamentFixtures,
@@ -116,11 +115,9 @@ function WinnerDialog({
 }
 
 function Match({ match, postScoreState, postResultState }) {
-  // console.log("match from match", match.id)
   const dispatch = useDispatch();
   const [team1Score, setTeam1Score] = useState("");
   const [team2Score, setTeam2Score] = useState("");
-  const [winnerId, setWinnerId] = useState("");
   const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
   const [winnerDialogOpen, setWinnerDialogOpen] = useState(false);
 
@@ -132,14 +129,6 @@ function Match({ match, postScoreState, postResultState }) {
 
   const handleCloseScoreDialog = () => {
     setScoreDialogOpen(false);
-  };
-
-  const handleOpenWinnerDialog = () => {
-    setWinnerDialogOpen(true);
-  };
-
-  const handleCloseWinnerDialog = () => {
-    setWinnerDialogOpen(false);
   };
 
   const handleScoreChange = (team, score) => {
@@ -155,42 +144,32 @@ function Match({ match, postScoreState, postResultState }) {
     console.log("Team1 score: ", team1Score);
     console.log("Team2 score: ", team2Score);
     console.log("data: ", match.id);
+
+    const winner_id = team1Score > team2Score ? match.team_id1 : match.team_id2;
+
     const data = {
       id: tourID,
       match_id: match.id,
       team1_score: team1Score,
       team2_score: team2Score,
+      winner_id,
     };
     // call post match score here
     // tourID match_id
     try {
       await dispatch(postMatchScore(data));
-      console.log("post score state", postScoreState);
-      if (postScoreState.isSuccess) {
-        handleCloseScoreDialog();
-      }
+      //console.log("post score state", postScoreState);
+      handleCloseScoreDialog();
     } catch (error) {
       console.log("Error while posting score");
     }
   };
   // handle post winner
-  const handlePostWinner = async ({ match_id }) => {
-    console.log("Winner id", winnerId);
-    console.log("match_id", match_id);
-    const data = {
-      id: tourID,
-      match_id : match.id,
-      winner_id: parseInt(winnerId),
-    };
-    try {
-      await dispatch(postMatchResult(data));
-      if (postResultState.isSuccess) {
-        handleCloseWinnerDialog();
-      }
-    } catch (error) {
-      console.log("Error while posting match winner");
-    }
-  };
+  // const handlePostWinner = async ({ match_id }) => {
+  //   console.log("Winner id", winnerId);
+  //   console.log("match_id", match_id);
+
+  // };
 
   return (
     <>
@@ -199,21 +178,21 @@ function Match({ match, postScoreState, postResultState }) {
         className="flex flex-row rounded-lg items-center justify-evenly gap-2"
       >
         <div>
-          <Input label="team_id1" value={match.team_id1} color="orange" />
+          <Input label="Team 1" value={match.team_1.name} color="orange" />
         </div>
         <div>
           <p className="p-2 bg-orange-600 text-white rounded-md"> vs </p>
         </div>
         <div>
-          <Input label="team_id2" value={match.team_id2} color="orange" />
+          <Input label="Team 2" value={match.team_2.name} color="orange" />
         </div>
         <div>
           <Button variant="text" color="amber" onClick={handleOpenScoreDialog}>
             Score
           </Button>
-          <Button variant="text" color="green" onClick={handleOpenWinnerDialog}>
+          {/* <Button variant="text" color="green" onClick={handleOpenWinnerDialog}>
             winner
-          </Button>
+          </Button> */}
         </div>
       </div>
 
@@ -225,15 +204,6 @@ function Match({ match, postScoreState, postResultState }) {
         team2Score={team2Score}
         handlePostMatchScore={handlePostMatchScore}
         postScoreState={postScoreState}
-      />
-
-      <WinnerDialog
-        open={winnerDialogOpen}
-        handleClose={handleCloseWinnerDialog}
-        winnerId={winnerId}
-        setWinnerId={setWinnerId}
-        handlePostWinner={handlePostWinner}
-        postResultState={postResultState}
       />
     </>
   );
@@ -265,8 +235,9 @@ export default function Rosters() {
     fetchData();
   }, [dispatch]);
 
-  const mappedMatches = tourFixtures.reduce((matchesByRound, fixture) => {
+  const mappedMatches = tourFixtures?.reduce((matchesByRound, fixture) => {
     const { round_number } = fixture;
+    console.log(" f" + fixture);
     if (!matchesByRound[round_number]) {
       matchesByRound[round_number] = [];
     }
@@ -319,8 +290,5 @@ export default function Rosters() {
         </div>
       ))}
     </div>
-  )
+  );
 }
-
-
-
