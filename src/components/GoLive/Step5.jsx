@@ -1,9 +1,9 @@
 // import { Input, Select, Option, ButtonGroup, Button, Textarea } from "@material-tailwind/react";
-import { useState } from 'react';
-import Rosters from './Rosters';
-import Details from '../Details';
+import { useState } from "react";
+import Rosters from "./rosters";
+import Details from "../Details";
 
-import {Participants} from '../index';
+import { Participants } from "../index";
 
 import {
   Tabs,
@@ -12,7 +12,7 @@ import {
   Tab,
   TabPanel,
 } from "@material-tailwind/react";
-import SetOperations from '../SetOperations';
+import SetOperations from "../SetOperations";
 
 export default function Example() {
   const data = [
@@ -45,42 +45,36 @@ export default function Example() {
     },
   ];
 
-
   return (
     <div className="px-2 border mt-3">
-      <h2 className="font-bold text-3xl capitalize">Created Tournament details</h2>
-
+      <h2 className="font-bold text-3xl capitalize">
+        Created Tournament details
+      </h2>
 
       <div className=" my-5 min-w-screen min-h-screen flex flex-row justify-start">
-
         <Tabs value="details" className="w-10/12">
           <TabsHeader
             className="min-w-full w-11/12 text-sm flex flex-row items-center justify-center divide-orange-600  bg-orange-600 p-1 rounded-md space-x-2 text-white hover:text-orange-600 focus:text-orange-400"
             indicatorProps={{
-              className: "hover:shadow-none rounded-md bg-orange-600 hover:bg-white hover:text-orange-600 focus:bg-white focus:text-orange-400",
+              className:
+                "hover:shadow-none rounded-md bg-orange-600 hover:bg-white hover:text-orange-600 focus:bg-white focus:text-orange-400",
             }}
           >
             {data.map(({ label, value }) => (
-              <Tab key={value} value={value} className="text-white" >
+              <Tab key={value} value={value} className="text-white">
                 {label}
               </Tab>
             ))}
           </TabsHeader>
-          <TabsBody className=''>
+          <TabsBody className="">
             {data.map(({ value, desc }) => (
               <TabPanel key={value} value={value}>
-                <div className="w-full">
-                {desc}
-                </div>
+                <div className="w-full">{desc}</div>
               </TabPanel>
             ))}
           </TabsBody>
         </Tabs>
       </div>
-
-
-
     </div>
-
   );
 }
